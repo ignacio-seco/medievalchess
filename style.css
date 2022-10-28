@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#boardGame{
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    justify-items: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+    margin-left: 5%;
+    background-color: antiquewhite;
+}
+#gameMenu{
+    width:20%;
+    background-color: grey;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    align-content: flex-start;
+    justify-content: flex-start;
+    justify-items: flex-start;
+    border-style: solid;
+}
+#gameLog{
+    height:
+}
+
+
+#board{
+    width:80%;
+    display: flex;
+    justify-content: center;
+    align-content:center;
+    align-items: flex-start;
+    justify-items: center;
+    flex-direction: column;
+
+}
+  td{
+    width: 14%;
+    position: relative;
+  }
+  table {
+    width: 80%;
+    height:80%
+  }
+  .white:after,
+  .grey:after{
+    content: '';
+    display: block;
+    margin-top: 100%;
+  }
+  td .square {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.hide{
+    display: none
+}
+.grey{
+    background-color: rgb(8, 7, 7);
+    color:rgba(255, 255, 255, 0.5);
+    width: 14.25%;
+    position: relative;
+}
+.white{
+    background-color: white;
+    color: rgba(255, 0, 0, 0.5);
+    width: 14.25%;
+    position: relative;
+}
+.coordinates{
+    width: 1%;
+    background-color: rgba(0, 0, 0,0.1);
+    color: white;
+    text-align: center;
+}
+#x-y{
+    background-color:aqua
+}
