@@ -3,21 +3,31 @@
   }*/
 let map
 map=[//
-//    Y  0    1   2   3   4   5  
-       ["-","-","-","-","-","-"],//0
-       ["-","-","-","-","-","-"],//1
-       ["-","-","-","-","-","-"],//2
-       ["-","-","-","-","-","-"],//3
-       ["-","-","-","-","-","-"],//4
-       ["-","-","-","-","-","-"] //5
-//                                X       
+//    Y  0    1   2   3   4   5  6   7   
+       ["-","-","-","-","-","-","-","-"],//0
+       ["-","-","-","-","-","-","-","-"],//1
+       ["-","-","-","-","-","-","-","-"],//2
+       ["-","-","-","-","-","-","-","-"],//3
+       ["-","-","-","-","-","-","-","-"],//4
+       ["-","-","-","-","-","-","-","-"], //5
+       ["-","-","-","-","-","-","-","-"], //6
+       ["-","-","-","-","-","-","-","-"] //7
+//                                         X       
 ] 
 cells=document.querySelectorAll(".cell")
-let lastTargetSpace
-let newTargetSpace =cells[0]
-newTargetSpace.classList.add("spaceSelected")
-let targetSpaceX =0
-let targetSpaceY=0
+
+let lastTargetSpace // celula previamente selecionada, necessário tirar a borda
+let newTargetSpace =cells[0] //seleção atual do jogador, possui borda azul
+newTargetSpace.classList.add("spaceSelected") //style da borda azul
+let targetSpaceX =0 // coordenada x da seleção do jogador para fazer a conversa entre java e html
+let targetSpaceY=0 // coordenada y da seleção do jogador para fazer a conversa entre java e html
+let targetSpaceMap=map[targetSpaceX][targetSpaceY] // posição que está selecionada pelo mapa do java
+let activeCharMapPosition // Posição do mapa em java do personagem ativado para a jogada
+let activeCharHtmlPosition // posição do personagem ativo no html, necessário colocar borda vermelha
+let activeCharLastHtmlPosition // ultima posição do personagem ativado, tirar a borda vermelha
+
+
+//eventListener que altera o valor das variáveis em conformidade com a seleção do jogador
 for(let i=0;i<cells.length;i++)
 {cells[i].addEventListener('click',()=>{
      lastTargetSpace=newTargetSpace;
@@ -31,13 +41,18 @@ for(let i=0;i<cells.length;i++)
     targetSpaceX=Number(childrens[0].textContent);
     console.log (targetSpaceX)
 targetSpaceY=Number(childrens[1].textContent)
-console.log(targetSpaceY);})}
-let activeChar
-let targetSpaceMap=map[targetSpaceX][targetSpaceY]
+console.log(targetSpaceY)
+targetSpaceMap=map[targetSpaceX][targetSpaceY]
+console.log(targetSpaceMap)
+;})}
+
 console.log(cells)
 
-/*    class Character{
-        constructor(job,health,attackTurn,attack,charMovment,range,points,player)
+
+
+
+ class Character{
+        constructor(job,health,attackTurn,attack,charMovment,range,points,player,mainImage,idle,atkMov,death)
         {
             this.job=job
             this.health=health
@@ -52,27 +67,33 @@ console.log(cells)
             this.positionY=-1
             this.positioned=false
             this.player=player
+            this.mainImage=mainImage
+            this.idle=idle
+            this.atkMov=atkMov
+            this.death=death
                         
         }
-        placeUnity(x,y){            if(((map[Number(x)])[Number(y)])==="-")
+        placeUnity(){            if(((map[targetSpaceX])[targetSpaceY])==="-")
         {
-        ((map[x])[y])=this;
-        this.positionX=Number(x);
-    this.positionY=Number(y);
+        ((map[targetSpaceX])[targetSpaceY])=this;
+
+        this.positionX=targetSpaceX;
+    this.positionY=targetSpaceY;
     this.positioned=true
+
 }
 else alert(`you can't place your unity there`)
 }
 
 activateChar()
 {
-    activeChar=map[this.positionX][this.positionY]
+    activeCharMapPosition=map[this.positionX][this.positionY]
 }
         moveRight(){if((this.positionY+1<map[this.positionX].length)&&(map[this.positionX][this.positionY+1]=="-")){
         map[this.positionX][this.positionY]="-";
         this.positionY++;
     map[this.positionX][this.positionY]=this;
-    activeChar=map[this.positionX][this.positionY];
+    activeCharMapPosition=map[this.positionX][this.positionY];
 this.movment=this.movment-1
 } 
 
@@ -83,7 +104,7 @@ this.movment=this.movment-1
     map[this.positionX][this.positionY]="-";
     this.positionY--;
 map[this.positionX][this.positionY]=this;
-activeChar=map[this.positionX][this.positionY];
+activeCharMapPosition=map[this.positionX][this.positionY];
 this.movment=this.movment-1
 } 
 
@@ -94,7 +115,7 @@ else alert(`you can't do this movment`); return;
     map[this.positionX][this.positionY]="-";
     this.positionX--;
 map[this.positionX][this.positionY]=this;
-activeChar=map[this.positionX][this.positionY];
+activeCharMapPosition=map[this.positionX][this.positionY];
 this.movment=this.movment-1
 } 
 
@@ -105,7 +126,7 @@ else alert(`you can't do this movment`); return;
     map[this.positionX][this.positionY]="-";
     this.positionX++;
 map[this.positionX][this.positionY]=this;
-activeChar=map[this.positionX][this.positionY];
+activeCharMapPosition=map[this.positionX][this.positionY];
 this.movment=this.movment-1
 } 
 else alert(`you can't do this movment`); return;
@@ -131,14 +152,12 @@ else alert(`you can't do this movment`); return;
 
 
     class Mage extends Character{
-        constructor(player){
-            super(`Mage`,50,1,30,1,3,15,player)
-            this.player=player
-            this.sprites= { 
-        mainImage:"./img/spritestouse/Mage/mage.png",
-        idle:
-        [
-                "./img/spritestouse/Mage/Idle/idle1.png",
+        constructor(player,mainImage,idle,atkMov,death){
+            super(`Mage`,50,1,30,1,3,15)
+            this.player=player;
+            this.mainImage="./img/spritestouse/Mage/mage.png";
+        this.idle=[
+            "./img/spritestouse/Mage/Idle/idle1.png",
             "./img/spritestouse/Mage/Idle/idle2.png",
             "./img/spritestouse/Mage/Idle/idle3.png",
             "./img/spritestouse/Mage/Idle/idle4.png",
@@ -152,8 +171,8 @@ else alert(`you can't do this movment`); return;
             "./img/spritestouse/Mage/Idle/idle12.png",
             "./img/spritestouse/Mage/Idle/idle13.png",
             "./img/spritestouse/Mage/Idle/idle14.png"
-        ],
-        atkMov:
+        ];
+        this.atkMov=
         [
         "./img/spritestouse/Mage/Attack/attack1.png",
         "./img/spritestouse/Mage/Attack/attack2.png",
@@ -162,8 +181,8 @@ else alert(`you can't do this movment`); return;
         "./img/spritestouse/Mage/Attack/attack5.png",
         "./img/spritestouse/Mage/Attack/attack6.png",
         "./img/spritestouse/Mage/Attack/attack7.png",
-        ],
-        death:
+        ];
+        this.death=
         [
         "./img/spritestouse/Mage/Death/death1.png",
         "./img/spritestouse/Mage/Death/death2.png",
@@ -175,23 +194,23 @@ else alert(`you can't do this movment`); return;
         "./img/spritestouse/Mage/Death/death8.png",
         "./img/spritestouse/Mage/Death/death9.png",
         "./img/spritestouse/Mage/Death/death10.png"
-        ]
-
-    }
+        ];
             
         }
 
     }
     const mage1 = new Mage('Ignacio')
     console.log(map)
-    mage1.placeUnity(2,0)
+    mage1.placeUnity()
     console.log(map)
     mage1.activateChar()
     console.log(map)
-    console.log(activeChar)
-    activeChar.moveDown()
+    console.log(activeCharMapPosition)
+    activeCharMapPosition.moveDown()
     console.log(map)
-    activeChar.moveUp()
+    activeCharMapPosition.moveUp()
     console.log(map)
-    activeChar.moveUp()
-    console.log(map)*/
+    activeCharMapPosition.moveRight()
+    console.log(map)
+    activeCharMapPosition.moveRight()
+    console.log(map)

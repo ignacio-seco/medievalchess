@@ -14,7 +14,7 @@
     background-color: antiquewhite;
 }
 #gameMenu{
-    width:20%;
+    width:10%;
     background-color: grey;
     display: flex;
     height: 100%;
@@ -25,11 +25,6 @@
     justify-items: flex-start;
     border-style: solid;
 }
-#gameLog{
-    height:
-}
-
-
 #board{
     width:80%;
     display: flex;
@@ -41,12 +36,12 @@
 
 }
   td{
-    width: 14%;
+    width: 12.5%;
     position: relative;
   }
   table {
-    width: 50%;
-    height:50%
+    width: 40%;
+    height:40%
   }
   .white:after,
   .grey:after{
@@ -70,13 +65,13 @@
 .grey{
     background-color: rgb(8, 7, 7);
     color:rgba(255, 255, 255, 0.5);
-    width: 14.25%;
+    width: 12.5%;
     position: relative;
 }
 .white{
     background-color: white;
     color: rgba(255, 0, 0, 0.5);
-    width: 14.25%;
+    width: 12.5%;
     position: relative;
 }
 .coordinates{
