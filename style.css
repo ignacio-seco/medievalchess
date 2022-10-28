@@ -45,8 +45,8 @@
     position: relative;
   }
   table {
-    width: 80%;
-    height:80%
+    width: 50%;
+    height:50%
   }
   .white:after,
   .grey:after{
@@ -87,4 +87,15 @@
 }
 #x-y{
     background-color:aqua
+}
+.spaceSelected{
+border-style: solid;
+border-color: blue;
+border: 5%;
+}
+.charSelected{
+  border-style: solid;
+border-color: rgb(255, 0, 0);
+border: 5%;
+
 }

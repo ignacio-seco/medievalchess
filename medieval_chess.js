@@ -1,3 +1,6 @@
+/*function generateRandomColor() {
+    return '#'+Math.floor(Math.random()*16777215).toString(16);
+  }*/
 let map
 map=[//
 //    Y  0    1   2   3   4   5  
@@ -6,14 +9,35 @@ map=[//
        ["-","-","-","-","-","-"],//2
        ["-","-","-","-","-","-"],//3
        ["-","-","-","-","-","-"],//4
-       ["-","-","-","-","-","-"]//5
+       ["-","-","-","-","-","-"] //5
 //                                X       
-]
+] 
+cells=document.querySelectorAll(".cell")
+let lastTargetSpace
+let newTargetSpace =cells[0]
+newTargetSpace.classList.add("spaceSelected")
+let targetSpaceX =0
+let targetSpaceY=0
+for(let i=0;i<cells.length;i++)
+{cells[i].addEventListener('click',()=>{
+     lastTargetSpace=newTargetSpace;
+     newTargetSpace=cells[i];
+     lastTargetSpace.classList.remove("spaceSelected");
+     newTargetSpace.classList.add("spaceSelected");
+     console.log(lastTargetSpace)
+     console.log(newTargetSpace)    
+    let childrens= Array.from(cells[i].children);
+    console.log(childrens)
+    targetSpaceX=Number(childrens[0].textContent);
+    console.log (targetSpaceX)
+targetSpaceY=Number(childrens[1].textContent)
+console.log(targetSpaceY);})}
 let activeChar
-console.log(map)
+let targetSpaceMap=map[targetSpaceX][targetSpaceY]
+console.log(cells)
 
-    class Character{
-        constructor(job,health,attackTurn,attack,charMovment,range,points)
+/*    class Character{
+        constructor(job,health,attackTurn,attack,charMovment,range,points,player)
         {
             this.job=job
             this.health=health
@@ -26,7 +50,9 @@ console.log(map)
             this.points=points
             this.positionX=-1
             this.positionY=-1
-            this.positioned=false            
+            this.positioned=false
+            this.player=player
+                        
         }
         placeUnity(x,y){            if(((map[Number(x)])[Number(y)])==="-")
         {
@@ -105,12 +131,58 @@ else alert(`you can't do this movment`); return;
 
 
     class Mage extends Character{
-        constructor(){
-            super(`Mage`,50,1,30,1,3,15)
+        constructor(player){
+            super(`Mage`,50,1,30,1,3,15,player)
+            this.player=player
+            this.sprites= { 
+        mainImage:"./img/spritestouse/Mage/mage.png",
+        idle:
+        [
+                "./img/spritestouse/Mage/Idle/idle1.png",
+            "./img/spritestouse/Mage/Idle/idle2.png",
+            "./img/spritestouse/Mage/Idle/idle3.png",
+            "./img/spritestouse/Mage/Idle/idle4.png",
+            "./img/spritestouse/Mage/Idle/idle5.png",
+            "./img/spritestouse/Mage/Idle/idle6.png",
+            "./img/spritestouse/Mage/Idle/idle7.png",
+            "./img/spritestouse/Mage/Idle/idle8.png",
+            "./img/spritestouse/Mage/Idle/idle9.png",
+            "./img/spritestouse/Mage/Idle/idle10.png",
+            "./img/spritestouse/Mage/Idle/idle11.png",
+            "./img/spritestouse/Mage/Idle/idle12.png",
+            "./img/spritestouse/Mage/Idle/idle13.png",
+            "./img/spritestouse/Mage/Idle/idle14.png"
+        ],
+        atkMov:
+        [
+        "./img/spritestouse/Mage/Attack/attack1.png",
+        "./img/spritestouse/Mage/Attack/attack2.png",
+        "./img/spritestouse/Mage/Attack/attack3.png",
+        "./img/spritestouse/Mage/Attack/attack4.png",
+        "./img/spritestouse/Mage/Attack/attack5.png",
+        "./img/spritestouse/Mage/Attack/attack6.png",
+        "./img/spritestouse/Mage/Attack/attack7.png",
+        ],
+        death:
+        [
+        "./img/spritestouse/Mage/Death/death1.png",
+        "./img/spritestouse/Mage/Death/death2.png",
+        "./img/spritestouse/Mage/Death/death3.png",
+        "./img/spritestouse/Mage/Death/death4.png",
+        "./img/spritestouse/Mage/Death/death5.png",
+        "./img/spritestouse/Mage/Death/death6.png",
+        "./img/spritestouse/Mage/Death/death7.png",
+        "./img/spritestouse/Mage/Death/death8.png",
+        "./img/spritestouse/Mage/Death/death9.png",
+        "./img/spritestouse/Mage/Death/death10.png"
+        ]
+
+    }
+            
         }
 
     }
-    const mage1 = new Mage()
+    const mage1 = new Mage('Ignacio')
     console.log(map)
     mage1.placeUnity(2,0)
     console.log(map)
@@ -122,4 +194,4 @@ else alert(`you can't do this movment`); return;
     activeChar.moveUp()
     console.log(map)
     activeChar.moveUp()
-    console.log(map)
+    console.log(map)*/
