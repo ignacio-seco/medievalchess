@@ -8,13 +8,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   <article id="welcome" class="hide">
+<article id="page1" >
+   <section id="welcome">
     <div id="instructions">
+        <h1>
+            Welcome to the Human vs Monster chess like Board Game! 
+        </h1>
+            <p>
+                In this game you will freely build your army and test your strategy against an oponent.<br>
+                In each turn you will be able to activate two character of your army, move it and attack oponent's characters.<br>
+                To begin with, tell us the name of each player and how much points each player will have to build their armies.<br>
+                Let the best strategy win!
+            </p>
     
     </div>
+    <div id="gameForm">
+        <form action="submit">            
+            <label for="Player1">Player 1</label>
+            <input type="name" id="player1Name">
+            <label for="Player2">Player 2</label>
+            <input type="name" id="player2Name">
+            <label for="GameArmyPoints">Set how much points can each army on the game have(min:100 max:300)</label>
+            <input type="number" id="GameArmyPointsSet" name="ArmyPoints" min="100" max="300">
+            <button type="button">BUILD YOUR ARMY!</button>
+        </form>
+    </div>
 
-   </article>
-   <article id="boardGame">
+    </section>
+</article>
+   <article id="page2" class="hide">
+   <section id="boardGame">
     <div id="gameMenu">
         <p id="gameLog">
             here we will get a game log
@@ -34,8 +57,8 @@
             <th>6</th>
             <th>7</th>
         </thead>
-        <tbody>
-            <tr>
+        <tbody id="allTheRows">
+            <tr id="1stRow">
                 <td class="coordinates">0</td>
                 <td class="white cell" id="00"><p class="hide">0</p><p class="hide">0</p><div class="square"><img src="" alt="">0,0</div></td>
                 <td class="grey cell" id="01"><x class="hide">0</x><y class="hide">1</y><div  class="square"><img src="" alt="">0,1</div></td>
@@ -46,7 +69,7 @@
                 <td class="white cell" id="06"><x class="hide">0</x><y class="hide">6</y><div class="square"><img src="" alt="">0,6</div></td>
                 <td class="grey cell" id="07"><x class="hide">0</x><y class="hide">7</y><div class="square"><img src="" alt="">0,7</div></td>
             </tr>
-            <tr>
+            <tr id="2ndRow">
                 <td class="coordinates">1</td>                
                 <td class="grey cell" id="10"><x class="hide">1</x><y class="hide">0</y><div  class="square"><img src="" alt="">1,0</div></td>
                 <td class="white cell" id="11"><x class="hide">1</x><y class="hide">1</y><div  class="square"><img src="" alt="">1,1</div></td>
@@ -57,7 +80,7 @@
                 <td class="grey cell" id="16"><x class="hide">1</x><y class="hide">6</y><div  class="square"><img src="" alt="">1,6</div></td>
                 <td class="white cell" id="17"><x class="hide">1</x><y class="hide">7</y><div  class="square"><img src="" alt="">1,7</div></td>
             </tr>
-            <tr>
+            <tr id="3rdRow">
                 <td class="coordinates">2</td>
                 <td class="white cell" id="20"><x class="hide">2</x><y class="hide">0</y><div  class="square"><img src="" alt="">2,0</div></td>
                 <td class="grey cell" id="21"><x class="hide">2</x><y class="hide">1</y><div  class="square"><img src="" alt="">2,1</div></td>
@@ -68,7 +91,7 @@
                 <td class="white cell" id="26"><x class="hide">2</x><y class="hide">6</y><div class="square"><img src="" alt="">2,6</div></td>
                 <td class="grey cell" id="27"><x class="hide">2</x><y class="hide">7</y><div class="square"><img src="" alt="">2,7</div></td>
             </tr>
-            <tr>
+            <tr id="4thRow">
                 <td class="coordinates">3</td>                
                 <td class="grey cell" id="30"><x class="hide">3</x><y class="hide">0</y><div  class="square"><img src="" alt="">3,0</div></td>
                 <td class="white cell" id="31"><x class="hide">3</x><y class="hide">1</y><div  class="square"><img src="" alt="">3,1</div></td>
@@ -80,7 +103,7 @@
                 <td class="white cell" id="37"><x class="hide">3</x><y class="hide">7</y><div  class="square"><img src="" alt="">3,7</div></td>
                 
             </tr>
-            <tr>
+            <tr id="5thRow">
                 <td class="coordinates">4</td>
                 <td class="white cell" id="40"><x class="hide">4</x><y class="hide">0</y><div  class="square"><img src="" alt="">4,0</div></td>
                 <td class="grey cell" id="41"><x class="hide">4</x><y class="hide">1</y><div  class="square"><img src="" alt="">4,1</div></td>
@@ -91,7 +114,7 @@
                 <td class="white cell" id="46"><x class="hide">4</x><y class="hide">6</y><div class="square"><img src="" alt="">4,6</div></td>
                 <td class="grey cell" id="47"><x class="hide">4</x><y class="hide">7</y><div class="square"><img src="" alt="">4,7</div></td>
             </tr>
-            <tr>
+            <tr id="6thRow">
                 <td class="coordinates">5</td>                
                 <td class="grey cell" id="50"><x class="hide">5</x><y class="hide">0</y><div  class="square"><img src="" alt="">5,0</div></td>
                 <td class="white cell" id="51"><x class="hide">5</x><y class="hide">1</y><div  class="square"><img src="" alt="">5,1</div></td>
@@ -102,7 +125,7 @@
                 <td class="grey cell" id="56"><x class="hide">5</x><y class="hide">6</y><div  class="square"><img src="" alt="">5,6</div></td>
                 <td class="white cell" id="57"><x class="hide">5</x><y class="hide">7</y><div  class="square"><img src="" alt="">5,7</div></td>
            </tr>
-           <tr>
+           <tr id="7thRow">
             <td class="coordinates">6</td>
             <td class="white cell" id="60"><x class="hide">6</x><y class="hide">0</y><div  class="square"><img src="" alt="">6,0</div></td>
             <td class="grey cell" id="61"><x class="hide">6</x><y class="hide">1</y><div  class="square"><img src="" alt="">6,1</div></td>
@@ -113,7 +136,7 @@
             <td class="white cell" id="66"><x class="hide">6</x><y class="hide">6</y><div class="square"><img src="" alt="">6,6</div></td>
             <td class="grey cell" id="67"><x class="hide">6</x><y class="hide">7</y><div class="square"><img src="" alt="">6,7</div></td>
         </tr>
-        <tr>
+        <tr id="8thRow">
             <td class="coordinates">7</td>                
             <td class="grey cell" id="70"><x class="hide">7</x><y class="hide">0</y><div  class="square"><img src="" alt="">7,0</div></td>
             <td class="white cell" id="71"><x class="hide">7</x><y class="hide">1</y><div  class="square"><img src="" alt="">7,1</div></td>
@@ -129,9 +152,9 @@
 
 
     </div>
+</section>
+</article>
 
-
-   </article> 
 <script src="medieval_chess.js"></script>    
 </body>
 </html>

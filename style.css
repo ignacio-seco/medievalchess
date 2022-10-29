@@ -3,6 +3,24 @@
     padding: 0;
     box-sizing: border-box;
 }
+#welcome{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+#gameForm form{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
+}
 #boardGame{
     display: flex;
     justify-content: flex-start;
