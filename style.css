@@ -45,7 +45,17 @@ input{
     background-color: antiquewhite;
     width: 100%;
 }
-#gameMenu,
+#gameMenu{
+  width:30%;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    border-style: solid;
+}
 .deployMenu
 {
     width:100%;
@@ -78,7 +88,7 @@ input{
 
 }
   td{
-    width: 12.5%;
+    width: 12%;
     position: relative;
   }
   table {
@@ -100,21 +110,23 @@ input{
     display: flex;
     justify-content: center;
     align-items: center;
+    justify-items: center;
+    align-content: center;
   }
 .hide{
     display: none;
     visibility: hidden;
 }
 .grey{
-    background-color: rgb(8, 7, 7);
+    background-color: rgba(8, 7, 7, 0.5);
     color:rgba(255, 255, 255, 0.5);
-    width: 12.5%;
+    width: 12%;
     position: relative;
 }
 .white{
     background-color: white;
     color: rgba(255, 0, 0, 0.5);
-    width: 12.5%;
+    width: 12%;
     position: relative;
 }
 .coordinates{
@@ -159,4 +171,9 @@ button{
 .armyShow{
   border-style: solid;
   border: 2px;
+}
+
+.square img{
+  
+  width: 130%;
 }

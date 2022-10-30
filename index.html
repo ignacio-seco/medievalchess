@@ -69,7 +69,7 @@
         </div>
     <div class="gameForm">
         <form action="">
-        <input type="radio" name="unit1" id="Mage" value="Mage">
+        <input type="radio" name="unit1" value="Mage">
         <label for="Mage"><img src="./img/spritestouse/Mage/Attack_Extra/attack_extra3.png" alt="">
             <br>Mage!
             <br>health: 50
@@ -103,19 +103,22 @@
             <h2>
                 <span class="player1output"></span>, now we will deploy your army on the board! 
             </h2>
-                <p>Select the unit you want to add in your army and click the button "add Army".<br>
-                    If you want to remove the last character you added, just click on "remove army"<br>
-                    The number of units you can have in your army depends on the points it costs.<br>
-                    You can build your army until the sum of the units get the same ammount of the match points.                
+                <p>Select the spot on the board that you would like to place your unity.<br>
+                    When on the right spot, press the "deploy this unit here!" button<br>
+                    You can recover an unity by selecting it and pressing "Return selected Unity to my barracks!"<br>
+                    To end your preparations, press "Everything is in place!"                
                 </p>
             </div>
     <section class="armyDeploy">
         <div class="leftMenu">
      <div class="deployMenu">
+        <h3>Barracks</h3>
         <img id="p1lastUnitImage" src=""></img>
         <p id="p1lastUnitJob"></p>
         
          <button id="p1DeployBtn"> deploy this unit here!</button>
+         <button id="p1UnityReturnBtn">Return selected Unity to my barracks!</button>
+         <button id="p1SetupFinishedBtn">Everything is in place!</button>
  
      </div>
     </div>
@@ -134,26 +137,26 @@
          </thead>
          <tbody id="p1DeployAllTheRows">
              <tr>
-                 <td class="coordinates">0</td>
-                 <td class="white cell" ><p class="hide">0</p><p class="hide">0</p><div class="square"><img src="" alt="">0,0</div></td>
-                 <td class="grey cell" ><x class="hide">0</x><y class="hide">1</y><div  class="square"><img src="" alt="">0,1</div></td>
-                 <td class="white cell" ><x class="hide">0</x><y class="hide">2</y><div class="square"><img src="" alt="">0,2</div></td>
-                 <td class="grey cell" ><x class="hide">0</x><y class="hide">3</y><div class="square"><img src="" alt="">0,3</div></td>
-                 <td class="white cell" ><x class="hide">0</x><y class="hide">4</y><div class="square"><img src="" alt="">0,4</div></td>
-                 <td class="grey cell" ><x class="hide">0</x><y class="hide">5</y><div class="square"><img src="" alt="">0,5</div></td>
-                 <td class="white cell" ><x class="hide">0</x><y class="hide">6</y><div class="square"><img src="" alt="">0,6</div></td>
-                 <td class="grey cell" ><x class="hide">0</x><y class="hide">7</y><div class="square"><img src="" alt="">0,7</div></td>
+                <td class="coordinates">0</td>
+                <td class="white cell"><p class="hide">0</p><p class="hide">0</p><div class="square"><img id="d00" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">0</x><y class="hide">1</y><div  class="square"><img id="d01" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">0</x><y class="hide">2</y><div class="square"><img id="d02" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">0</x><y class="hide">3</y><div class="square"><img id="d03" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">0</x><y class="hide">4</y><div class="square"><img id="d04" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">0</x><y class="hide">5</y><div class="square"><img id="d05" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">0</x><y class="hide">6</y><div class="square"><img id="d06" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">0</x><y class="hide">7</y><div class="square"><img id="d07" src="" alt=""></div></td>
              </tr>
              <tr>
-                 <td class="coordinates">1</td>                
-                 <td class="grey cell" ><x class="hide">1</x><y class="hide">0</y><div  class="square"><img src="" alt="">1,0</div></td>
-                 <td class="white cell" ><x class="hide">1</x><y class="hide">1</y><div  class="square"><img src="" alt="">1,1</div></td>
-                 <td class="grey cell" ><x class="hide">1</x><y class="hide">2</y><div  class="square"><img src="" alt="">1,2</div></td>
-                 <td class="white cell" ><x class="hide">1</x><y class="hide">3</y><div  class="square"><img src="" alt="">1,3</div></td>
-                 <td class="grey cell" ><x class="hide">1</x><y class="hide">4</y><div  class="square"><img src="" alt="">1,4</div></td>
-                 <td class="white cell" ><x class="hide">1</x><y class="hide">5</y><div  class="square"><img src="" alt="">1,5</div></td>
-                 <td class="grey cell" ><x class="hide">1</x><y class="hide">6</y><div  class="square"><img src="" alt="">1,6</div></td>
-                 <td class="white cell"><x class="hide">1</x><y class="hide">7</y><div  class="square"><img src="" alt="">1,7</div></td>
+                 <td class="coordinates">1</td>                                
+                <td class="grey cell"><x class="hide">1</x><y class="hide">0</y><div  class="square"><img id="d10" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">1</x><y class="hide">1</y><div  class="square"><img id="d11" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">1</x><y class="hide">2</y><div  class="square"><img id="d12" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">1</x><y class="hide">3</y><div  class="square"><img id="d13" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">1</x><y class="hide">4</y><div  class="square"><img id="d14" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">1</x><y class="hide">5</y><div  class="square"><img id="d15" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">1</x><y class="hide">6</y><div  class="square"><img id="d16" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">1</x><y class="hide">7</y><div  class="square"><img id="d17" src="" alt=""></div></td>
              </tr>
 </tbody>
 </table>
@@ -162,12 +165,135 @@
 </article>
 
 
+<article id="page5" class="hide">
+    <section class="welcome">
+    <div class="instructions">
+        <h2>
+            Now is <span class="player2output"></span> setting up turn 
+        </h2>
+            <p>Call <span class="player2output"></span>, <span class="player1output"></span> and let <span class="player2output"></span> build their army.<br>                 
+            </p>
+    
+    </div>
+    <div class="gameForm">
+        <button type="button" id="player2IsHereAgain"><span class="player2output"></span> is here again!</button>
+    </div>
+
+    </section>
+ </article>
+
+ <article id="page6" class="hide">
+    <section class="welcome">
+    <div class="instructions">
+        <h2>
+            It is time to build your army <span class="player2output"></span>! 
+        </h2>
+            <p>Select the unit you want to add in your army and click the button "add Army".<br>
+                If you want to remove the last character you added, just click on "remove army"<br>
+                The number of units you can have in your army depends on the points it costs.<br>
+                You can build your army until the sum of the units get the same ammount of the match points.                
+            </p>
+        </div>
+    <div class="gameForm">
+        <form action="">
+        <input type="radio" name="unit2" value="Mage">
+        <label for="Mage"><img src="./img/spritestouse/Mage/Attack_Extra/attack_extra3.png" alt="">
+            <br>Mage!
+            <br>health: 50
+            <br>attack:30
+            <br>movement:1
+            <br>attacks p/turn:1
+            <br>points: 15
+        </label>
+        <button type="button" id="addArmy2">Add on <span class="player2output"></span> Army!!</button>
+    </form>
+    </div>
+    <div>
+        <h3>Army points for this match:<span class="armyPointForThisMatch"></span></h3>
+        <h3>Your army points:<span id="player20Points"></span></h3>
+        <h3>Point's left to build your army<span id="player2PointsLeft"></span></h3>
+    </div>
+    <div class="armyRemoval">
+        <h3>Your army:<span class="player2ArmySprites"></span></h3>
+        <div class="armyShow" id="armyShow2">          
+
+        </div>
+        <button id="removeP2Army">Remove last unit!</button>
+    </div>
+    <button id="p2finishedArmy">My army is read to deploy!</button>
+    </section>
+ </article>
+
+ <article id="page7" class="hide">
+    <section class="welcome">
+        <div class="instructions">
+            <h2>
+                <span class="player2output"></span>, now we will deploy your army on the board! 
+            </h2>
+                <p>Select the spot on the board that you would like to place your unity.<br>
+                    When on the right spot, press the "deploy this unit here!" button<br>
+                    You can recover an unity by selecting it and pressing "Return selected Unity to my barracks!"<br>
+                    To end your preparations, press "Everything is in place!"                
+                </p>
+            </div>
+    <section class="armyDeploy">
+        <div class="leftMenu">
+     <div class="deployMenu">
+        <h3>Barracks</h3>
+        <img id="p2lastUnitImage" src=""></img>
+        <p id="p2lastUnitJob"></p>
+        
+         <button id="p2DeployBtn"> deploy this unit here!</button>
+         <button id="p2UnityReturnBtn">Return selected Unity to my barracks!</button>
+         <button id="p2SetupFinishedBtn">Everything is in place!</button>
+ 
+     </div>
+    </div>
+     <div class="deployboard">
+         <table>
+         
+         <tbody id="p1DeployAllTheRows">
+             <tr>
+                <td class="coordinates">6</td>
+                <td class="white cell"><p class="hide">6</p><p class="hide">0</p><div class="square"><img id="d60" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">6</x><y class="hide">1</y><div  class="square"><img id="d61" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">6</x><y class="hide">2</y><div class="square"><img id="d62" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">6</x><y class="hide">3</y><div class="square"><img id="d63" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">6</x><y class="hide">4</y><div class="square"><img id="d64" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">6</x><y class="hide">5</y><div class="square"><img id="d65" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">6</x><y class="hide">6</y><div class="square"><img id="d66" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">6</x><y class="hide">7</y><div class="square"><img id="d67" src="" alt=""></div></td>
+             </tr>
+             <tr>
+                <td class="coordinates">7</td>                
+                <td class="grey cell"><x class="hide">7</x><y class="hide">0</y><div  class="square"><img id="d70" src="" alt=""></div></td>
+                    <td class="white cell"><x class="hide">7</x><y class="hide">1</y><div  class="square"><img id="d71" src="" alt=""></div></td>
+                    <td class="grey cell"><x class="hide">7</x><y class="hide">2</y><div  class="square"><img id="d72" src="" alt=""></div></td>
+                    <td class="white cell"><x class="hide">7</x><y class="hide">3</y><div  class="square"><img id="d73" src="" alt=""></div></td>
+                    <td class="grey cell"><x class="hide">7</x><y class="hide">4</y><div  class="square"><img id="d74" src="" alt=""></div></td>
+                    <td class="white cell"><x class="hide">7</x><y class="hide">5</y><div  class="square"><img id="d75" src="" alt=""></div></td>
+                    <td class="grey cell"><x class="hide">7</x><y class="hide">6</y><div  class="square"><img id="d76" src="" alt=""></div></td>
+                    <td class="white cell"><x class="hide">7</x><y class="hide">7</y><div  class="square"><img id="d77" src="" alt=""></div></td>
+             </tr>
+             <tfoot class= "coordinates">
+                <th class="x-y"> Y→<br> X↑</th>
+                <th>0</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+            </tfoot>
+</tbody>
+</table>
+</div>
+</section>
+</article>
 
 
-
-
-
-   <article id="page5" class="hide">
+   <article id="page8" class="hide">
    <section id="boardGame">
     <div id="gameMenu">
         <p id="gameLog">
@@ -178,7 +304,7 @@
     <div id="board">
         <table>
         <thead class= "coordinates">
-            <th id="x-y"> Y→<br> X↓</th>
+            <th class="x-y"> Y→<br> X↓</th>
             <th>0</th>
             <th>1</th>
             <th>2</th>
@@ -191,92 +317,92 @@
         <tbody id="allTheRows">
             <tr id="1stRow">
                 <td class="coordinates">0</td>
-                <td class="white cell" id="00"><p class="hide">0</p><p class="hide">0</p><div class="square"><img src="" alt="">0,0</div></td>
-                <td class="grey cell" id="01"><x class="hide">0</x><y class="hide">1</y><div  class="square"><img src="" alt="">0,1</div></td>
-                <td class="white cell" id="02"><x class="hide">0</x><y class="hide">2</y><div class="square"><img src="" alt="">0,2</div></td>
-                <td class="grey cell" id="03"><x class="hide">0</x><y class="hide">3</y><div class="square"><img src="" alt="">0,3</div></td>
-                <td class="white cell" id="04"><x class="hide">0</x><y class="hide">4</y><div class="square"><img src="" alt="">0,4</div></td>
-                <td class="grey cell" id="05"><x class="hide">0</x><y class="hide">5</y><div class="square"><img src="" alt="">0,5</div></td>
-                <td class="white cell" id="06"><x class="hide">0</x><y class="hide">6</y><div class="square"><img src="" alt="">0,6</div></td>
-                <td class="grey cell" id="07"><x class="hide">0</x><y class="hide">7</y><div class="square"><img src="" alt="">0,7</div></td>
+                <td class="white cell"><p class="hide">0</p><p class="hide">0</p><div class="square"><img id="b00" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">0</x><y class="hide">1</y><div  class="square"><img id="b01" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">0</x><y class="hide">2</y><div class="square"><img id="b02" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">0</x><y class="hide">3</y><div class="square"><img id="b03" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">0</x><y class="hide">4</y><div class="square"><img id="b04" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">0</x><y class="hide">5</y><div class="square"><img id="b05" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">0</x><y class="hide">6</y><div class="square"><img id="b06" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">0</x><y class="hide">7</y><div class="square"><img id="b07" src="" alt=""></div></td>
             </tr>
             <tr id="2ndRow">
                 <td class="coordinates">1</td>                
-                <td class="grey cell" id="10"><x class="hide">1</x><y class="hide">0</y><div  class="square"><img src="" alt="">1,0</div></td>
-                <td class="white cell" id="11"><x class="hide">1</x><y class="hide">1</y><div  class="square"><img src="" alt="">1,1</div></td>
-                <td class="grey cell" id="12"><x class="hide">1</x><y class="hide">2</y><div  class="square"><img src="" alt="">1,2</div></td>
-                <td class="white cell" id="13"><x class="hide">1</x><y class="hide">3</y><div  class="square"><img src="" alt="">1,3</div></td>
-                <td class="grey cell" id="14"><x class="hide">1</x><y class="hide">4</y><div  class="square"><img src="" alt="">1,4</div></td>
-                <td class="white cell" id="15"><x class="hide">1</x><y class="hide">5</y><div  class="square"><img src="" alt="">1,5</div></td>
-                <td class="grey cell" id="16"><x class="hide">1</x><y class="hide">6</y><div  class="square"><img src="" alt="">1,6</div></td>
-                <td class="white cell" id="17"><x class="hide">1</x><y class="hide">7</y><div  class="square"><img src="" alt="">1,7</div></td>
+                <td class="grey cell"><x class="hide">1</x><y class="hide">0</y><div  class="square"><img id="b10" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">1</x><y class="hide">1</y><div  class="square"><img id="b11" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">1</x><y class="hide">2</y><div  class="square"><img id="b12" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">1</x><y class="hide">3</y><div  class="square"><img id="b13" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">1</x><y class="hide">4</y><div  class="square"><img id="b14" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">1</x><y class="hide">5</y><div  class="square"><img id="b15" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">1</x><y class="hide">6</y><div  class="square"><img id="b16" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">1</x><y class="hide">7</y><div  class="square"><img id="b17" src="" alt=""></div></td>
             </tr>
             <tr id="3rdRow">
                 <td class="coordinates">2</td>
-                <td class="white cell" id="20"><x class="hide">2</x><y class="hide">0</y><div  class="square"><img src="" alt="">2,0</div></td>
-                <td class="grey cell" id="21"><x class="hide">2</x><y class="hide">1</y><div  class="square"><img src="" alt="">2,1</div></td>
-                <td class="white cell" id="22"><x class="hide">2</x><y class="hide">2</y><div class="square"><img src="" alt="">2,2</div></td>
-                <td class="grey cell" id="23"><x class="hide">2</x><y class="hide">3</y><div class="square"><img src="" alt="">2,3</div></td>
-                <td class="white cell" id="24"><x class="hide">2</x><y class="hide">4</y><div class="square"><img src="" alt="">2,4</div></td>
-                <td class="grey cell" id="25"><x class="hide">2</x><y class="hide">5</y><div class="square"><img src="" alt="">2,5</div></td>
-                <td class="white cell" id="26"><x class="hide">2</x><y class="hide">6</y><div class="square"><img src="" alt="">2,6</div></td>
-                <td class="grey cell" id="27"><x class="hide">2</x><y class="hide">7</y><div class="square"><img src="" alt="">2,7</div></td>
+                <td class="white cell"><p class="hide">2</p><p class="hide">0</p><div class="square"><img id="b20" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">2</x><y class="hide">1</y><div  class="square"><img id="b21" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">2</x><y class="hide">2</y><div class="square"><img id="b22" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">2</x><y class="hide">3</y><div class="square"><img id="b23" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">2</x><y class="hide">4</y><div class="square"><img id="b24" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">2</x><y class="hide">5</y><div class="square"><img id="b25" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">2</x><y class="hide">6</y><div class="square"><img id="b26" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">2</x><y class="hide">7</y><div class="square"><img id="b27" src="" alt=""></div></td>
             </tr>
             <tr id="4thRow">
                 <td class="coordinates">3</td>                
-                <td class="grey cell" id="30"><x class="hide">3</x><y class="hide">0</y><div  class="square"><img src="" alt="">3,0</div></td>
-                <td class="white cell" id="31"><x class="hide">3</x><y class="hide">1</y><div  class="square"><img src="" alt="">3,1</div></td>
-                <td class="grey cell" id="32"><x class="hide">3</x><y class="hide">2</y><div  class="square"><img src="" alt="">3,2</div></td>
-                <td class="white cell" id="33"><x class="hide">3</x><y class="hide">3</y><div  class="square"><img src="" alt="">3,3</div></td>
-                <td class="grey cell" id="34"><x class="hide">3</x><y class="hide">4</y><div  class="square"><img src="" alt="">3,4</div></td>
-                <td class="white cell" id="35"><x class="hide">3</x><y class="hide">5</y><div  class="square"><img src="" alt="">3,5</div></td>
-                <td class="grey cell" id="36"><x class="hide">3</x><y class="hide">6</y><div  class="square"><img src="" alt="">3,6</div></td>
-                <td class="white cell" id="37"><x class="hide">3</x><y class="hide">7</y><div  class="square"><img src="" alt="">3,7</div></td>
+                <td class="grey cell"><x class="hide">3</x><y class="hide">0</y><div  class="square"><img id="b30" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">3</x><y class="hide">1</y><div  class="square"><img id="b31" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">3</x><y class="hide">2</y><div  class="square"><img id="b32" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">3</x><y class="hide">3</y><div  class="square"><img id="b33" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">3</x><y class="hide">4</y><div  class="square"><img id="b34" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">3</x><y class="hide">5</y><div  class="square"><img id="b35" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">3</x><y class="hide">6</y><div  class="square"><img id="b36" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">3</x><y class="hide">7</y><div  class="square"><img id="b37" src="" alt=""></div></td>
                 
             </tr>
             <tr id="5thRow">
                 <td class="coordinates">4</td>
-                <td class="white cell" id="40"><x class="hide">4</x><y class="hide">0</y><div  class="square"><img src="" alt="">4,0</div></td>
-                <td class="grey cell" id="41"><x class="hide">4</x><y class="hide">1</y><div  class="square"><img src="" alt="">4,1</div></td>
-                <td class="white cell" id="42"><x class="hide">4</x><y class="hide">2</y><div class="square"><img src="" alt="">4,2</div></td>
-                <td class="grey cell" id="43"><x class="hide">4</x><y class="hide">3</y><div class="square"><img src="" alt="">4,3</div></td>
-                <td class="white cell" id="44"><x class="hide">4</x><y class="hide">4</y><div class="square"><img src="" alt="">4,4</div></td>
-                <td class="grey cell" id="45"><x class="hide">4</x><y class="hide">5</y><div class="square"><img src="" alt="">4,5</div></td>
-                <td class="white cell" id="46"><x class="hide">4</x><y class="hide">6</y><div class="square"><img src="" alt="">4,6</div></td>
-                <td class="grey cell" id="47"><x class="hide">4</x><y class="hide">7</y><div class="square"><img src="" alt="">4,7</div></td>
+                <td class="white cell"><p class="hide">4</p><p class="hide">0</p><div class="square"><img id="b40" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">4</x><y class="hide">1</y><div  class="square"><img id="b41" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">4</x><y class="hide">2</y><div class="square"><img id="b42" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">4</x><y class="hide">3</y><div class="square"><img id="b43" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">4</x><y class="hide">4</y><div class="square"><img id="b44" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">4</x><y class="hide">5</y><div class="square"><img id="b45" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">4</x><y class="hide">6</y><div class="square"><img id="b46" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">4</x><y class="hide">7</y><div class="square"><img id="b47" src="" alt=""></div></td>
             </tr>
             <tr id="6thRow">
                 <td class="coordinates">5</td>                
-                <td class="grey cell" id="50"><x class="hide">5</x><y class="hide">0</y><div  class="square"><img src="" alt="">5,0</div></td>
-                <td class="white cell" id="51"><x class="hide">5</x><y class="hide">1</y><div  class="square"><img src="" alt="">5,1</div></td>
-                <td class="grey cell" id="52"><x class="hide">5</x><y class="hide">2</y><div  class="square"><img src="" alt="">5,2</div></td>
-                <td class="white cell" id="53"><x class="hide">5</x><y class="hide">3</y><div  class="square"><img src="" alt="">5,3</div></td>
-                <td class="grey cell" id="54"><x class="hide">5</x><y class="hide">4</y><div  class="square"><img src="" alt="">5,4</div></td>
-                <td class="white cell" id="55"><x class="hide">5</x><y class="hide">5</y><div  class="square"><img src="" alt="">5,5</div></td>
-                <td class="grey cell" id="56"><x class="hide">5</x><y class="hide">6</y><div  class="square"><img src="" alt="">5,6</div></td>
-                <td class="white cell" id="57"><x class="hide">5</x><y class="hide">7</y><div  class="square"><img src="" alt="">5,7</div></td>
+                <td class="grey cell"><x class="hide">5</x><y class="hide">0</y><div  class="square"><img id="b50" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">5</x><y class="hide">1</y><div  class="square"><img id="b51" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">5</x><y class="hide">2</y><div  class="square"><img id="b52" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">5</x><y class="hide">3</y><div  class="square"><img id="b53" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">5</x><y class="hide">4</y><div  class="square"><img id="b54" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">5</x><y class="hide">5</y><div  class="square"><img id="b55" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">5</x><y class="hide">6</y><div  class="square"><img id="b56" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">5</x><y class="hide">7</y><div  class="square"><img id="b57" src="" alt=""></div></td>
            </tr>
            <tr id="7thRow">
-            <td class="coordinates">6</td>
-            <td class="white cell" id="60"><x class="hide">6</x><y class="hide">0</y><div  class="square"><img src="" alt="">6,0</div></td>
-            <td class="grey cell" id="61"><x class="hide">6</x><y class="hide">1</y><div  class="square"><img src="" alt="">6,1</div></td>
-            <td class="white cell" id="62"><x class="hide">6</x><y class="hide">2</y><div class="square"><img src="" alt="">6,2</div></td>
-            <td class="grey cell" id="63"><x class="hide">6</x><y class="hide">3</y><div class="square"><img src="" alt="">6,3</div></td>
-            <td class="white cell" id="64"><x class="hide">6</x><y class="hide">4</y><div class="square"><img src="" alt="">6,4</div></td>
-            <td class="grey cell" id="65"><x class="hide">6</x><y class="hide">5</y><div class="square"><img src="" alt="">6,5</div></td>
-            <td class="white cell" id="66"><x class="hide">6</x><y class="hide">6</y><div class="square"><img src="" alt="">6,6</div></td>
-            <td class="grey cell" id="67"><x class="hide">6</x><y class="hide">7</y><div class="square"><img src="" alt="">6,7</div></td>
+                <td class="coordinates">6</td>
+                <td class="white cell"><p class="hide">6</p><p class="hide">0</p><div class="square"><img id="b60" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">6</x><y class="hide">1</y><div  class="square"><img id="b61" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">6</x><y class="hide">2</y><div class="square"><img id="b62" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">6</x><y class="hide">3</y><div class="square"><img id="b63" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">6</x><y class="hide">4</y><div class="square"><img id="b64" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">6</x><y class="hide">5</y><div class="square"><img id="b65" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">6</x><y class="hide">6</y><div class="square"><img id="b66" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">6</x><y class="hide">7</y><div class="square"><img id="b67" src="" alt=""></div></td>
         </tr>
         <tr id="8thRow">
             <td class="coordinates">7</td>                
-            <td class="grey cell" id="70"><x class="hide">7</x><y class="hide">0</y><div  class="square"><img src="" alt="">7,0</div></td>
-            <td class="white cell" id="71"><x class="hide">7</x><y class="hide">1</y><div  class="square"><img src="" alt="">7,1</div></td>
-            <td class="grey cell" id="72"><x class="hide">7</x><y class="hide">2</y><div  class="square"><img src="" alt="">7,2</div></td>
-            <td class="white cell" id="73"><x class="hide">7</x><y class="hide">3</y><div  class="square"><img src="" alt="">7,3</div></td>
-            <td class="grey cell" id="74"><x class="hide">7</x><y class="hide">4</y><div  class="square"><img src="" alt="">7,4</div></td>
-            <td class="white cell" id="75"><x class="hide">7</x><y class="hide">5</y><div  class="square"><img src="" alt="">7,5</div></td>
-            <td class="grey cell" id="76"><x class="hide">7</x><y class="hide">6</y><div  class="square"><img src="" alt="">7,6</div></td>
-            <td class="white cell" id="77"><x class="hide">7</x><y class="hide">7</y><div  class="square"><img src="" alt="">7,7</div></td>
+            <td class="grey cell"><x class="hide">7</x><y class="hide">0</y><div  class="square"><img id="b70" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">7</x><y class="hide">1</y><div  class="square"><img id="b71" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">7</x><y class="hide">2</y><div  class="square"><img id="b72" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">7</x><y class="hide">3</y><div  class="square"><img id="b73" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">7</x><y class="hide">4</y><div  class="square"><img id="b74" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">7</x><y class="hide">5</y><div  class="square"><img id="b75" src="" alt=""></div></td>
+                <td class="grey cell"><x class="hide">7</x><y class="hide">6</y><div  class="square"><img id="b76" src="" alt=""></div></td>
+                <td class="white cell"><x class="hide">7</x><y class="hide">7</y><div  class="square"><img id="b77" src="" alt=""></div></td>
        </tr> 
         </tbody>
         </table>

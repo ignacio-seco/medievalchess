@@ -1,3 +1,5 @@
+
+
 const match = new MedievalChess
 
 let map
@@ -14,6 +16,8 @@ map=
 //                                         X       
 ]
 
+//logica da seleção do mapa
+
 let cells=document.querySelectorAll(".cell")
 let lastTargetSpace // celula previamente selecionada, necessário tirar a borda
 let newTargetSpace =cells[0] //seleção atual do jogador, possui borda azul
@@ -24,6 +28,7 @@ let targetSpaceMap=map[targetSpaceX][targetSpaceY] // posição que está seleci
 let activeCharMapPosition // Posição do mapa em java do personagem ativado para a jogada
 let activeCharHtmlPosition // posição do personagem ativo no html, necessário colocar borda vermelha
 let activeCharLastHtmlPosition // ultima posição do personagem ativado, tirar a borda vermelha
+
 
 //logica do mapa
 for(let i=0;i<cells.length;i++)
@@ -46,7 +51,7 @@ console.log(targetSpaceMap)
 
 
 //logica do jogo daqui para baixo
-
+//-------------------------------------------------------------This is the game setup---------------------------------------------------------------------------
 
 //setting up - primeira pagina, obter nome dos jogadores e tamanho do exército
 let page1= document.querySelector(`#page1`)
@@ -60,6 +65,8 @@ let page3=document.querySelector(`#page3`)
 let page4=document.querySelector(`#page4`)
 let page5=document.querySelector(`#page5`)
 let page6=document.querySelector(`#page6`)
+let page7=document.querySelector(`#page7`)
+let page8=document.querySelector(`#page8`)
 let player2out= document.querySelectorAll(`.player2output`)
 let player1in= document.querySelectorAll(`.player1output`)
 
@@ -144,7 +151,7 @@ addArmy1.addEventListener("click",
             unitBuilder= new Mage(match.player1)
             unitSprite= unitBuilder.mainImage
         }//acrescentar novas classes aqui
-        if(match.player1ArmyPoints + unitBuilder.points>match.gameArmyPoints)
+        if(match.player1Army.length!==16){if(match.player1ArmyPoints + unitBuilder.points>match.gameArmyPoints)
         {
             alert ("This unit is too expensive, try a cheaper one or finalize this phase");
             return;
@@ -157,7 +164,11 @@ addArmy1.addEventListener("click",
         spriteAdd.src=unitSprite
         spriteAdd.classList.add("armySprite")
         armyShow1.appendChild(spriteAdd)
-        console.log(match)})
+        console.log(match)}
+        else alert("16 units is the biggest army allowed");
+        return
+    }
+    )
         
         //remove army button
 removeP1Army.addEventListener("click",()=>
@@ -184,9 +195,17 @@ page4.classList.remove("hide");})
 
 // Place P1 units dom
 p1DeployBtn.addEventListener("click",()=>{if(p1DeployArray.length>0)
-    {
+    {if(map[targetSpaceX][targetSpaceY]==="-"){
+        let deployedUnit=p1DeployArray[p1DeployArray.length-1]
         map[targetSpaceX][targetSpaceY]=p1DeployArray[p1DeployArray.length-1];
+        let deploySpace=`#d${targetSpaceX}${targetSpaceY}`
+        let boardSpace=`#b${targetSpaceX}${targetSpaceY}`
+        map[targetSpaceX][targetSpaceY].positionX=targetSpaceX;
+        map[targetSpaceX][targetSpaceY].positionY=targetSpaceY;
+        document.querySelector(deploySpace).src=deployedUnit.mainImage
+        document.querySelector(boardSpace).src=deployedUnit.mainImage
         p1DeployArray.pop();
+        console.log(map)
 
         if(p1DeployArray.length>0)
         {
@@ -196,14 +215,186 @@ p1DeployBtn.addEventListener("click",()=>{if(p1DeployArray.length>0)
         else  
         p1lastUnitImage.src=""
         p1lastUnitJob.textContent=""
-    }
+    } else alert (`This place is already taken by another unit. Use an empty one`);
+    return
+}
     console.log(map)
 }
 )
 
+let p1UnityReturnBtn = document.querySelector(`#p1UnityReturnBtn`)
+let p1SetupFinishedBtn = document.querySelector(`#p1SetupFinishedBtn`)
+
+p1UnityReturnBtn.addEventListener("click",()=> 
+{if(map[targetSpaceX][targetSpaceY]!=="-"){
+    p1DeployArray.push(map[targetSpaceX][targetSpaceY]);
+    map[targetSpaceX][targetSpaceY]="-";
+    let deploySpace=`#d${targetSpaceX}${targetSpaceY}`;
+    let boardSpace=`#b${targetSpaceX}${targetSpaceY}`;
+    document.querySelector(deploySpace).src="";
+    document.querySelector(boardSpace).src="";
+    p1lastUnitImage.src=p1DeployArray[p1DeployArray.length-1].mainImage;
+    p1lastUnitJob.textContent=p1DeployArray[p1DeployArray.length-1].job;
+
+}
+else alert (`There is no unity here to call to the Barracks!`);
+return
+}
+)
+
+p1SetupFinishedBtn.addEventListener("click",()=>
+{
+    if(p1DeployArray.length==0)
+    {
+        page4.classList.add("hide");
+        page5.classList.remove("hide");
+    }
+else alert (`You need to deploy all of your unity's`)
+})
 
 
 
+//from here, is the player 2 
+
+//setting up - segunda página, player 2 is out?
+let player2IsHereAgain= document.querySelector(`#player2IsHereAgain`)
+player2IsHereAgain.addEventListener(`click`,()=>
+{
+    page5.classList.add("hide");
+    page6.classList.remove("hide");  
+})
+
+// setting up, terceira página - construir os exércitos
+
+let addArmy2 = document.querySelector(`#addArmy2`)
+let player20Points=document.querySelector(`#player20Points`)
+player20Points.textContents=match.player2ArmyPoints
+let player2PointsLeft= document.querySelector(`#player2PointsLeft`)
+player2PointsLeft.textContent=match.gameArmyPoints-match.player2ArmyPoints
+let armyShow2 = document.querySelector(`#armyShow2`)
+let removeP2Army = document.querySelector(`#removeP2Army`)
+let P2finishedArmy = document.querySelector(`#p2finishedArmy`)
+let p2DeployArray
+let p2lastUnitImage = document.querySelector(`#p2lastUnitImage`)
+let p2lastUnitJob = document.querySelector(`#p2lastUnitJob`)
+let p2DeployBtn = document.querySelector(`#p2DeployBtn`)
+//botão de acrescentar exercitos
+addArmy2.addEventListener("click",
+()=> {
+    let radioselected = document.getElementsByName('unit2');      
+    for(i = 0; i < radioselected.length; i++) {
+        if(radioselected[i].checked)
+        {
+            unitType=radioselected[i].value
+        }}
+        let unitBuilder
+        let unitSprite
+        if(unitType==="Mage"){
+            unitBuilder= new Mage(match.player1)
+            unitSprite= unitBuilder.mainImage
+        }//acrescentar novas classes aqui
+        if(match.player2Army.length!==16){if(match.player2ArmyPoints + unitBuilder.points>match.gameArmyPoints)
+        {
+            alert ("This unit is too expensive, try a cheaper one or finalize this phase");
+            return;
+        }
+        else match.player2Army.push(unitBuilder);
+        match.player2ArmyPoints=match.player2ArmyPoints+unitBuilder.points;
+        player20Points.innerHTML=match.player2ArmyPoints;
+        player2PointsLeft.textContent=match.gameArmyPoints-match.player2ArmyPoints;
+        spriteAdd= document.createElement('img')
+        spriteAdd.src=unitSprite
+        spriteAdd.classList.add("armySprite")
+        armyShow2.appendChild(spriteAdd)
+        console.log(match)}
+        else alert("16 units is the biggest army allowed");
+        return
+    }
+    )
+        
+        //remove army button
+removeP2Army.addEventListener("click",()=>
+{if(match.player2Army.length>0){
+armyShow2.lastChild.remove()
+match.player2ArmyPoints=match.player2ArmyPoints-(match.player2Army[match.player2Army.length-1].points)
+match.player2Army.pop()
+player20Points.innerHTML=match.player2ArmyPoints;
+player2PointsLeft.textContent=match.gameArmyPoints-match.player2ArmyPoints;
+console.log(match)}
+else alert (`You don't have any troops to remove. Try hiring someone to be able to fire them...`)
+return;
+}
+)
+// Finished deploy button and start Deploy fase arrangements
+P2finishedArmy.addEventListener("click",()=>{if(match.player2ArmyPoints<(match.gameArmyPoints/2)){alert (`please, add more units to your army. Don't make this a suicide mission!`);
+return}
+else 
+p2DeployArray=Object.assign([],match.player2Army)
+p2lastUnitImage.src=p2DeployArray[p2DeployArray.length-1].mainImage
+p2lastUnitJob.textContent=p2DeployArray[p2DeployArray.length-1].job
+page6.classList.add("hide");
+page7.classList.remove("hide");})
+
+// Place P1 units dom
+p2DeployBtn.addEventListener("click",()=>{if(p2DeployArray.length>0)
+    {if(map[targetSpaceX][targetSpaceY]==="-"){
+        let deployedUnit=p2DeployArray[p2DeployArray.length-1]
+        map[targetSpaceX][targetSpaceY]=p2DeployArray[p2DeployArray.length-1];
+        let deploySpace=`#d${targetSpaceX}${targetSpaceY}`
+        let boardSpace=`#b${targetSpaceX}${targetSpaceY}`
+        map[targetSpaceX][targetSpaceY].positionX=targetSpaceX;
+        map[targetSpaceX][targetSpaceY].positionY=targetSpaceY;
+        document.querySelector(deploySpace).src=deployedUnit.mainImage
+        document.querySelector(boardSpace).src=deployedUnit.mainImage
+        p2DeployArray.pop();
+        console.log(map)
+
+        if(p2DeployArray.length>0)
+        {
+            p2lastUnitImage.src=p2DeployArray[p2DeployArray.length-1].mainImage
+            p2lastUnitJob.textContent=p2DeployArray[p2DeployArray.length-1].job
+        }
+        else  
+        p2lastUnitImage.src=""
+        p2lastUnitJob.textContent=""
+    } else alert (`This place is already taken by another unit. Use an empty one`);
+    return
+}
+    console.log(map)
+}
+)
+
+let p2UnityReturnBtn = document.querySelector(`#p2UnityReturnBtn`)
+let p2SetupFinishedBtn = document.querySelector(`#p2SetupFinishedBtn`)
+
+p2UnityReturnBtn.addEventListener("click",()=> 
+{if(map[targetSpaceX][targetSpaceY]!=="-"){
+    p2DeployArray.push(map[targetSpaceX][targetSpaceY]);
+    map[targetSpaceX][targetSpaceY]="-";
+    let deploySpace=`#d${targetSpaceX}${targetSpaceY}`;
+    let boardSpace=`#b${targetSpaceX}${targetSpaceY}`;
+    document.querySelector(deploySpace).src="";
+    document.querySelector(boardSpace).src="";
+    p2lastUnitImage.src=p2DeployArray[p2DeployArray.length-1].mainImage;
+    p2lastUnitJob.textContent=p2DeployArray[p2DeployArray.length-1].job;
+
+}
+else alert (`There is no unity here to call to the Barracks!`);
+return
+}
+)
+
+p2SetupFinishedBtn.addEventListener("click",()=>
+{
+    if(p2DeployArray.length==0)
+    {
+        page7.classList.add("hide");
+        page8.classList.remove("hide");
+    }
+else alert (`You need to deploy all of your unity's`)
+})
+
+//-------------------------------------------Here ends the game setup-----------------------------------------------------------------
 
 
 

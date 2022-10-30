@@ -12,7 +12,6 @@ class Character{
         this.points=points
         this.positionX=-1
         this.positionY=-1
-        this.positioned=false
         this.player=player
         this.mainImage=mainImage
         this.idle=idle
