@@ -125,6 +125,10 @@ let armyShow1 = document.querySelector(`#armyShow1`)
 let spriteAdd
 let removeP1Army = document.querySelector(`#removeP1Army`)
 let P1finishedArmy = document.querySelector(`#p1finishedArmy`)
+let p1DeployArray
+let p1lastUnitImage = document.querySelector(`#p1lastUnitImage`)
+let p1lastUnitJob = document.querySelector(`#p1lastUnitJob`)
+let p1DeployBtn = document.querySelector(`#p1DeployBtn`)
 //botão de acrescentar exercitos
 addArmy1.addEventListener("click",
 ()=> {
@@ -138,8 +142,8 @@ addArmy1.addEventListener("click",
         let unitSprite
         if(unitType==="Mage"){
             unitBuilder= new Mage(match.player1)
-            unitSprite= "./img/spritestouse/Mage/mage.png"
-        }
+            unitSprite= unitBuilder.mainImage
+        }//acrescentar novas classes aqui
         if(match.player1ArmyPoints + unitBuilder.points>match.gameArmyPoints)
         {
             alert ("This unit is too expensive, try a cheaper one or finalize this phase");
@@ -168,13 +172,37 @@ else alert (`You don't have any troops to remove. Try hiring someone to be able 
 return;
 }
 )
-// Finished deploy button
+// Finished deploy button and start Deploy fase arrangements
 P1finishedArmy.addEventListener("click",()=>{if(match.player1ArmyPoints<(match.gameArmyPoints/2)){alert (`please, add more units to your army. Don't make this a suicide mission!`);
 return}
-else page3.classList.add("hide");
+else 
+p1DeployArray=Object.assign([],match.player1Army)
+p1lastUnitImage.src=p1DeployArray[p1DeployArray.length-1].mainImage
+p1lastUnitJob.textContent=p1DeployArray[p1DeployArray.length-1].job
+page3.classList.add("hide");
 page4.classList.remove("hide");})
 
 // Place P1 units dom
+p1DeployBtn.addEventListener("click",()=>{if(p1DeployArray.length>0)
+    {
+        map[targetSpaceX][targetSpaceY]=p1DeployArray[p1DeployArray.length-1];
+        p1DeployArray.pop();
+
+        if(p1DeployArray.length>0)
+        {
+            p1lastUnitImage.src=p1DeployArray[p1DeployArray.length-1].mainImage
+            p1lastUnitJob.textContent=p1DeployArray[p1DeployArray.length-1].job
+        }
+        else  
+        p1lastUnitImage.src=""
+        p1lastUnitJob.textContent=""
+    }
+    console.log(map)
+}
+)
+
+
+
 
 
 

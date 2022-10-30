@@ -76,6 +76,7 @@
             <br>attack:30
             <br>movement:1
             <br>attacks p/turn:1
+            <br>points: 15
         </label>
         <button type="button" id="addArmy1">Add on <span class="player1output"></span> Army!!</button>
     </form>
@@ -97,11 +98,27 @@
  </article>
 
  <article id="page4" class="hide">
+    <section class="welcome">
+        <div class="instructions">
+            <h2>
+                <span class="player1output"></span>, now we will deploy your army on the board! 
+            </h2>
+                <p>Select the unit you want to add in your army and click the button "add Army".<br>
+                    If you want to remove the last character you added, just click on "remove army"<br>
+                    The number of units you can have in your army depends on the points it costs.<br>
+                    You can build your army until the sum of the units get the same ammount of the match points.                
+                </p>
+            </div>
     <section class="armyDeploy">
+        <div class="leftMenu">
      <div class="deployMenu">
-         <button> deploy this unit here!</button>
+        <img id="p1lastUnitImage" src=""></img>
+        <p id="p1lastUnitJob"></p>
+        
+         <button id="p1DeployBtn"> deploy this unit here!</button>
  
      </div>
+    </div>
      <div class="deployboard">
          <table>
          <thead class= "coordinates">
