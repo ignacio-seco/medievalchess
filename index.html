@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<article id="page1" >
-   <section id="welcome">
-    <div id="instructions">
+<article id="page1">
+   <section class="welcome">
+    <div class="instructions">
         <h1>
             Welcome to the Human vs Monster chess like Board Game! 
         </h1>
@@ -22,21 +22,135 @@
             </p>
     
     </div>
-    <div id="gameForm">
+    <div class="gameForm">
         <form action="submit">            
-            <label for="Player1">Player 1</label>
+            <label for="Player1" >Player 1</label>
             <input type="name" id="player1Name">
             <label for="Player2">Player 2</label>
             <input type="name" id="player2Name">
             <label for="GameArmyPoints">Set how much points can each army on the game have(min:100 max:300)</label>
-            <input type="number" id="GameArmyPointsSet" name="ArmyPoints" min="100" max="300">
-            <button type="button">BUILD YOUR ARMY!</button>
+            <input type="number" id="gameArmyPointsSet" name="ArmyPoints" min="100" max="300">
+            <button type="button" id="getGameData">LET'S BEGIN</button>
         </form>
     </div>
 
     </section>
 </article>
-   <article id="page2" class="hide">
+
+<article id="page2" class="hide">
+    <section class="welcome">
+    <div class="instructions">
+        <h2>
+            Setting up the game! 
+        </h2>
+            <p>Now, <span class="player2output"></span>, go get a cup of water while <span class="player1output"></span> secretely build and place their army!<br>
+            Please don't peek and ruin the fun!                 
+            </p>
+    
+    </div>
+    <div class="gameForm">
+        <button type="button" id="player2isout"><span class="player2output"></span> is out!!</button>
+    </div>
+
+    </section>
+ </article>
+
+ <article id="page3" class="hide">
+    <section class="welcome">
+    <div class="instructions">
+        <h2>
+            It is time to build your army <span class="player1output"></span>! 
+        </h2>
+            <p>Select the unit you want to add in your army and click the button "add Army".<br>
+                If you want to remove the last character you added, just click on "remove army"<br>
+                The number of units you can have in your army depends on the points it costs.<br>
+                You can build your army until the sum of the units get the same ammount of the match points.                
+            </p>
+        </div>
+    <div class="gameForm">
+        <form action="">
+        <input type="radio" name="unit1" id="Mage" value="Mage">
+        <label for="Mage"><img src="./img/spritestouse/Mage/Attack_Extra/attack_extra3.png" alt="">
+            <br>Mage!
+            <br>health: 50
+            <br>attack:30
+            <br>movement:1
+            <br>attacks p/turn:1
+        </label>
+        <button type="button" id="addArmy1">Add on <span class="player1output"></span> Army!!</button>
+    </form>
+    </div>
+    <div>
+        <h3>Army points for this match:<span class="armyPointForThisMatch"></span></h3>
+        <h3>Your army points:<span id="player10Points"></span></h3>
+        <h3>Point's left to build your army<span id="player1PointsLeft"></span></h3>
+    </div>
+    <div class="armyRemoval">
+        <h3>Your army:<span class="player1ArmySprites"></span></h3>
+        <div class="armyShow" id="armyShow1">          
+
+        </div>
+        <button id="removeP1Army">Remove last unit!</button>
+    </div>
+    <button id="p1finishedArmy">My army is read to deploy!</button>
+    </section>
+ </article>
+
+ <article id="page4" class="hide">
+    <section class="armyDeploy">
+     <div class="deployMenu">
+         <button> deploy this unit here!</button>
+ 
+     </div>
+     <div class="deployboard">
+         <table>
+         <thead class= "coordinates">
+             <th class="x-y"> Y→<br> X↓</th>
+             <th>0</th>
+             <th>1</th>
+             <th>2</th>
+             <th>3</th>
+             <th>4</th>
+             <th>5</th>
+             <th>6</th>
+             <th>7</th>
+         </thead>
+         <tbody id="p1DeployAllTheRows">
+             <tr>
+                 <td class="coordinates">0</td>
+                 <td class="white cell" ><p class="hide">0</p><p class="hide">0</p><div class="square"><img src="" alt="">0,0</div></td>
+                 <td class="grey cell" ><x class="hide">0</x><y class="hide">1</y><div  class="square"><img src="" alt="">0,1</div></td>
+                 <td class="white cell" ><x class="hide">0</x><y class="hide">2</y><div class="square"><img src="" alt="">0,2</div></td>
+                 <td class="grey cell" ><x class="hide">0</x><y class="hide">3</y><div class="square"><img src="" alt="">0,3</div></td>
+                 <td class="white cell" ><x class="hide">0</x><y class="hide">4</y><div class="square"><img src="" alt="">0,4</div></td>
+                 <td class="grey cell" ><x class="hide">0</x><y class="hide">5</y><div class="square"><img src="" alt="">0,5</div></td>
+                 <td class="white cell" ><x class="hide">0</x><y class="hide">6</y><div class="square"><img src="" alt="">0,6</div></td>
+                 <td class="grey cell" ><x class="hide">0</x><y class="hide">7</y><div class="square"><img src="" alt="">0,7</div></td>
+             </tr>
+             <tr>
+                 <td class="coordinates">1</td>                
+                 <td class="grey cell" ><x class="hide">1</x><y class="hide">0</y><div  class="square"><img src="" alt="">1,0</div></td>
+                 <td class="white cell" ><x class="hide">1</x><y class="hide">1</y><div  class="square"><img src="" alt="">1,1</div></td>
+                 <td class="grey cell" ><x class="hide">1</x><y class="hide">2</y><div  class="square"><img src="" alt="">1,2</div></td>
+                 <td class="white cell" ><x class="hide">1</x><y class="hide">3</y><div  class="square"><img src="" alt="">1,3</div></td>
+                 <td class="grey cell" ><x class="hide">1</x><y class="hide">4</y><div  class="square"><img src="" alt="">1,4</div></td>
+                 <td class="white cell" ><x class="hide">1</x><y class="hide">5</y><div  class="square"><img src="" alt="">1,5</div></td>
+                 <td class="grey cell" ><x class="hide">1</x><y class="hide">6</y><div  class="square"><img src="" alt="">1,6</div></td>
+                 <td class="white cell"><x class="hide">1</x><y class="hide">7</y><div  class="square"><img src="" alt="">1,7</div></td>
+             </tr>
+</tbody>
+</table>
+</div>
+</section>
+</article>
+
+
+
+
+
+
+
+   <article id="page5" class="hide">
    <section id="boardGame">
     <div id="gameMenu">
         <p id="gameLog">
@@ -154,7 +268,8 @@
     </div>
 </section>
 </article>
-
-<script src="medieval_chess.js"></script>    
+<script src="./js/character.js"></script>
+<script src="./js/logic.js"></script>
+<script src="./js/dom.js"></script>    
 </body>
 </html>
