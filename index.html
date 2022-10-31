@@ -294,19 +294,28 @@
 
 
    <article id="page8" class="hide">
-   <section id="boardGame">
-    <div id="gameMenu">
-        <p id="activation-button-menu">
-            <button id="activateUnitBtn">Avtivate selected unit!</button>
-            <button id="endTurnBtn">End your player turn</button>
-        </p>
+    <div id="gameMatchPage">
+    <div id="upperLog">
+        <h2>It is <span id="playerTurn"></span> turn!</h2>
 
     </div>
-    <div id="gameMenu2" class="hide">
-        <p id="turn-button-menu">
-            <button id="attackBtn">Attack target!</button>
+    <section id="boardGame">
+    <div id="turnMenu" class="gameMenu">
+            <button id="activateUnitBtn">Avtivate selected unit!</button>
+            <button id="endTurnBtn">End your player turn</button>
+    </div>
+    <div id="activationMenu" class="gameMenu hide">
+        <!-- O div abaixo é da versão anterior onde os movimentos seriam feitos com botões. Vou usar as setas ao invés disso-->
+        <!--<div>
+            <button id="moveUpBtn">Move Up!</button>
+        </div>
+        <div id="lowerRowButtons">
+            <button id="moveLeftBtn">Move Left!</button>
+            <button id="moveDownBtn">Move Down!</button>
+            <button id="moveRightBtn">Move Right!</button>
+        </div>-->
+            <button id="attackBtn">Attack target Space!</button>
             <button id="endUnitActivation">End unit activation</button>
-        </p>
 
     </div>
     <div id="board">
@@ -417,7 +426,17 @@
 
 
     </div>
+    <div id="gameMenu3" class="gameMenu">
+        <div id="activeCharInformation">
+        <p></p>
+        </div>
+        <div id="selectedSpaceInformation">
+
+        </div>
+
+</div>
 </section>
+</div>
 </article>
 <script src="./js/character.js"></script>
 <script src="./js/logic.js"></script>

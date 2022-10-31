@@ -18,6 +18,9 @@ h1,
 h2{
   margin-bottom: 3%;
 }
+body{
+  background-color: antiquewhite;
+}
 .gameForm{
   padding-top: 6%;
 }
@@ -39,14 +42,16 @@ input{
     justify-content: flex-start;
     align-content: flex-start;
     justify-items: flex-start;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: row;
-    padding: 2%;
+    margin-left: 1%;
     background-color: antiquewhite;
     width: 100%;
 }
-#gameMenu{
-  width:30%;
+.gameMenu
+{
+  width:25%;
+  height: 40rem;
     background-color: grey;
     display: flex;
     flex-direction: column;
@@ -78,13 +83,14 @@ input{
 }
 #board,
 .deployboard{
-    width:100%;
+    width:45%;
     display: flex;
     justify-content: center;
     align-content:center;
     align-items: flex-start;
     justify-items: center;
     flex-direction: column;
+    margin:0 1%
 
 }
   td{
@@ -92,8 +98,8 @@ input{
     position: relative;
   }
   table {
-    width: 60%;
-    height:60%
+    width: 100%;
+    height:100%
   }
   .white:after,
   .grey:after{
@@ -176,4 +182,30 @@ button{
 .square img{
   
   width: 130%;
+}
+
+#gameMatchPage{
+display: flex;
+flex-direction: column;
+}
+#upperLog{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  margin-top: 0.2%;
+}
+#upperLog h2{
+  margin: 0;
+}
+
+#lowerRowButtons{
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
+  justify-items: flex-start;
 }

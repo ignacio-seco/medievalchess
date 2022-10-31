@@ -1,3 +1,4 @@
+let totalRange
 class Character{
     constructor(job,health,attackTurn,attack,charMovment,range,points,player,mainImage,idle,atkMov,death)
     {
@@ -20,22 +21,7 @@ class Character{
         this.death=death
                     
     }
-    placeUnity(){            if(((map[targetSpaceX])[targetSpaceY])==="-")
-    {
-    ((map[targetSpaceX])[targetSpaceY])=this;
-
-    this.positionX=targetSpaceX;
-this.positionY=targetSpaceY;
-this.positioned=true
-
-}
-else alert(`you can't place your unity there`)
-}
-
-activateChar()
-{
-activeCharMapPosition=map[this.positionX][this.positionY]
-}
+    
     moveRight(){if((this.positionY+1<map[this.positionX].length)&&(map[this.positionX][this.positionY+1]=="-")){
     map[this.positionX][this.positionY]="-";
     this.positionY++;
@@ -79,21 +65,34 @@ this.movment=this.movment-1
 else alert(`you can't do this movment`); return;
  
 }
-attack(x,y){
-let rangeX=this.positionX-x;
-let rangeY=this.positionY-y;
+attack(){
+let rangeX=this.positionX-targetSpaceX;
+let rangeY=this.positionY-targetSpaceY;
 if (rangeX<0){rangeX=rangeX*-1};
 if (rangeY<0){rangeY=rangeY*-1}
-let totalRange=rangeX+rangeY
-if (this.range<=totalRange){(map[x][y]).receiveDamage();
+totalRange=rangeX+rangeY
+if (this.range<=totalRange){(map[targetSpaceX][targetSpaceY]).receiveDamage();
 this.attackMade--    
-if((this.movment=0)&&(this.attackMade=0)){this.endTurn()}}
+if((this.movment=0)&&(this.attackMade=0)){this.endUnitActivation()}}
 else alert(`you can't attack there`); return;
 }
-endTurn(){
-this.movment=this.charMovment
+endUnitActivation()
+{
+    this.attackMade=0
+    this.movment=0
+    let boardSpace=`#b${this.PositionX}${this.PositionY}`
+    document.querySelector(boardSpace).classList.remove("charSelected")
+    activeChar=""
+    turnMenu.classList.remove("hide");
+    activationMenu.classList.add("hide");
 }
-receiveDamage(){}
+receiveDamage(){
+    this.health=this.health-activeChar.attack;
+    returnDamage()
+}
+returnDamage(){
+    if(this.range<=totalRange){activeChar.health=activeChar.health-(this.attack / 2)}
+}
 }
 
 
@@ -146,4 +145,3 @@ class Mage extends Character{
     }
 
 }
-let mage1 = new Mage("ignácio")

@@ -1,3 +1,31 @@
+//setting up
+let page1= document.querySelector(`#page1`)
+let player1Name=document.querySelector(`#player1Name`)
+let player2Name=document.querySelector(`#player2Name`)
+let gameArmyPointsSet=document.querySelector(`#gameArmyPointsSet`)
+let armyPointForThisMatch = document.querySelectorAll(`.armyPointForThisMatch`)
+let getGameData = document.querySelector (`#getGameData`)
+let page2=document.querySelector(`#page2`)
+let page3=document.querySelector(`#page3`)
+let page4=document.querySelector(`#page4`)
+let page5=document.querySelector(`#page5`)
+let page6=document.querySelector(`#page6`)
+let page7=document.querySelector(`#page7`)
+let page8=document.querySelector(`#page8`)
+let player2out= document.querySelectorAll(`.player2output`)
+let player1in= document.querySelectorAll(`.player1output`)
+//query selector dos menus do tabuleiro
+let turnMenu = document.querySelector(`#turnMenu`)
+let activationMenu = document.querySelector(`#activationMenu`)
+let activeCharInformation = document.querySelector(`#activeCharInformation`)
+let selectedSpaceInformation = document.querySelector(`#selectedSpaceInformation`)
+let activateUnitBtn = document.querySelector(`#activateUnitBtn`)
+let endTurnBtn = document.querySelector(`#endTurnBtn`)
+let attackBtn = document.querySelector(`#attackBtn`)
+let endUnitActivation = document.querySelector(`endUnitActivation`)
+
+
+
 
 
 const match = new MedievalChess
@@ -25,9 +53,9 @@ newTargetSpace.classList.add("spaceSelected") //style da borda azul
 let targetSpaceX =0 // coordenada x da seleção do jogador para fazer a conversa entre java e html
 let targetSpaceY=0 // coordenada y da seleção do jogador para fazer a conversa entre java e html
 let targetSpaceMap=map[targetSpaceX][targetSpaceY] // posição que está selecionada pelo mapa do java
-let activeChar // Posição do mapa em java do personagem ativado para a jogada
-let activeCharHtmlPosition // posição do personagem ativo no html, necessário colocar borda vermelha
-let activeCharLastHtmlPosition // ultima posição do personagem ativado, tirar a borda vermelha
+let activeChar=false // Posição do mapa em java do personagem ativado para a jogada
+let activeCharLastXPosition // ultima posição X do personagem ativado, tirar a borda vermelha
+let activeCharLastYPosition // ultima posição Y do personagem ativado, tirar a borda vermelha
 
 
 //logica do mapa
@@ -46,33 +74,21 @@ for(let i=0;i<cells.length;i++)
 targetSpaceY=Number(childrens[1].textContent)
 console.log(targetSpaceY)
 targetSpaceMap=map[targetSpaceX][targetSpaceY]
-console.log(targetSpaceMap)
+//console.log(targetSpaceMap)
 console.log(match)
+console.log((map[targetSpaceX][targetSpaceY]).player)
+console.log(match.activePlayer)
+console.log(((map[targetSpaceX][targetSpaceY]).player==this.activePlayer))
 //console.log(map)
 //console.log(match.player1Army)
+
 ;})}
 
 
 //logica do jogo daqui para baixo
 //-------------------------------------------------------------This is the game setup---------------------------------------------------------------------------
-
-//setting up - primeira pagina, obter nome dos jogadores e tamanho do exército
-let page1= document.querySelector(`#page1`)
-let player1Name=document.querySelector(`#player1Name`)
-let player2Name=document.querySelector(`#player2Name`)
-let gameArmyPointsSet=document.querySelector(`#gameArmyPointsSet`)
-let armyPointForThisMatch = document.querySelectorAll(`.armyPointForThisMatch`)
-let getGameData = document.querySelector (`#getGameData`)
-let page2=document.querySelector(`#page2`)
-let page3=document.querySelector(`#page3`)
-let page4=document.querySelector(`#page4`)
-let page5=document.querySelector(`#page5`)
-let page6=document.querySelector(`#page6`)
-let page7=document.querySelector(`#page7`)
-let page8=document.querySelector(`#page8`)
-let player2out= document.querySelectorAll(`.player2output`)
-let player1in= document.querySelectorAll(`.player1output`)
-
+//setting up
+// logica da página 1 - primeira pagina, obter nome dos jogadores e tamanho do exército
 
 getGameData.addEventListener(`click`,()=>{
     console.log(player1Name)
@@ -399,8 +415,14 @@ p2SetupFinishedBtn.addEventListener("click",()=>
 else alert (`You need to deploy all of your unity's`)
 })
 
-//-------------------------------------------Here ends the game setup-----------------------------------------------------------------
-
-
-
-
+//--------------------------------Here ends the game setup and starts the board DOM-----------------------------------------------------------------
+activateUnitBtn.addEventListener(`click`,match.activateChar)
+endTurnBtn.addEventListener(`click`,match.endTurn)
+attackBtn.addEventListener(`click`,()=>{activeChar.attack()})
+endUnitActivation.addEventListener(`click`,()=>{activeChar.endUnitActivation()})
+document.addEventListener("keydown",function(e)
+{if(e.key=="ArrowLeft"){activeChar.moveRight}
+else if(e.key=="ArrowRight"){activeChar.moveLeft}
+else if(e.key=="ArrowUp"){activeChar.moveUp}
+else if(e.key=="ArrowDown"){activeChar.moveDown}
+})
