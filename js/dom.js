@@ -309,7 +309,7 @@ addArmy2.addEventListener("click",
         let unitBuilder
         let unitSprite
         if(unitType==="Mage"){
-            unitBuilder= new Mage(match.player1)
+            unitBuilder= new Mage(match.player2)
             unitSprite= unitBuilder.mainImage
         }//acrescentar novas classes aqui
         if(match.player2Army.length!==16){if(match.player2ArmyPoints + unitBuilder.points>match.gameArmyPoints)

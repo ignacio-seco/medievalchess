@@ -41,7 +41,7 @@ class MedievalChess{
     })
 }
     activateChar(){
-        if(this.playerActivationsLast !== 0){ 
+        if(Number(this.playerActivationsLast) > 0){ 
             if(map[targetSpaceX][targetSpaceY]!=="-")
             {
         if((map[targetSpaceX][targetSpaceY]).player==this.activePlayer){
