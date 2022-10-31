@@ -13,6 +13,7 @@ class Character{
         this.positionX=-1
         this.positionY=-1
         this.player=player
+        this.activated=false
         this.mainImage=mainImage
         this.idle=idle
         this.atkMov=atkMov

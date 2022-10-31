@@ -16,75 +16,44 @@ class MedievalChess{
         this.gameArmyPoints=100
         this.activePlayer=""
     }
-    setArmyPoints()
-    {
-        let armyPointsNumber//querySelector;
-        if(armyPointsNumber>100)
-        {
-            if(armyPointsNumber<300)
-            {
-            this.gameArmyPoints=armyPointsNumber
-            } 
-            else this.gameArmyPoints=300 
-        }
-        else this.gameArmyPoints=100
-    }
-    setPlayerOneArmy(type)
-    {
-    let newCharacter = new type (this.player1);
-    if(this.player1ArmyPoints+newCharacter.points<this.gameArmyPoints){
-    this.player1Army.push(newCharacter);
-    let newArmyPoints=0
-    this.player1Army.forEach((element)=>newArmyPoints=newArmyPoints + element.points)
-    this.player1ArmyPoints=newArmyPoints}
-    else 
-    {
-        alert (`${this.player1},this unity cost too much for your army, try a cheaper one or end this fase`);
-    return;
-    }
 
-    }
-    setPlayerTwoArmy(type)
-    {
-    let newCharacter = new type (this.player2);
-    if(this.player2ArmyPoints+newCharacter.points<this.gameArmyPoints){
-    this.player2Army.push(newCharacter);
-    let newArmyPoints=0
-    this.player2Army.forEach((element)=>newArmyPoints=newArmyPoints + element.points)
-    this.player2ArmyPoints=newArmyPoints}
-    else 
-    {
-        alert (`${this.player2},this unity cost too much for your army, try a cheaper one or end this fase`);
-    return;
-    }
-
-    }
-    placePlayerOneArmy(){
-
-    }
-    PlacePlayerTwoArmy(){
-        
-    }
-    setActivePlayer(){
+    startMatch(){
         this.activePlayer=this.player1
+    }
+    
+    endTurn(){
+        let boardSpace=`#b${activeChar.PositionX}${activeChar.PositionY}`
+            document.querySelector(boardSpace).classList.remove("charSelected");
+            this.playerActivationsLast=this.turnActivations
+        if(this.activePlayer=this.player1){
+        this.player1Army.forEach((element)=>{
+            element.movment=element.charMovment;
+            element.attackMade=element.attackTurn;
+            element.activated=false
+            this.activePlayer=this.player2
+        })    
+        }
+        else this.player2Army.forEach((element)=>{
+            element.movment=element.charMovment;
+            element.attackMade=element.attackTurn;
+            element.activated=false
+            this.activePlayer=this.player1
+    })
+}
+    activateChar(){
+        if(map[targetSpaceX][targetSpaceY].player===this.activePlayer){
+            if(map[targetSpaceX][targetSpaceY].activated)
+            {
+                alert (`This unit has already been activated this turn`);
+            return;
+            }
+            else activeChar=map[targetSpaceX][targetSpaceY];
+            let boardSpace=`#b${activeChar.PositionX}${activeChar.PositionY}`
+            document.querySelector(boardSpace).classList.add("charSelected")
+
+        }
+        alert (`Don't try to mind controller other people! You can't activate another player unit!`);
+            return;
     }
 
 }
-
-
-
-/*    const mage1 = new Mage('Ignacio')
-    console.log(map)
-    mage1.placeUnity()
-    console.log(map)
-    mage1.activateChar()
-    console.log(map)
-    console.log(activeCharMapPosition)
-    activeCharMapPosition.moveDown()
-    console.log(map)
-    activeCharMapPosition.moveUp()
-    console.log(map)
-    activeCharMapPosition.moveRight()
-    console.log(map)
-    activeCharMapPosition.moveRight()
-    console.log(map)*/

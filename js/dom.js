@@ -25,7 +25,7 @@ newTargetSpace.classList.add("spaceSelected") //style da borda azul
 let targetSpaceX =0 // coordenada x da seleção do jogador para fazer a conversa entre java e html
 let targetSpaceY=0 // coordenada y da seleção do jogador para fazer a conversa entre java e html
 let targetSpaceMap=map[targetSpaceX][targetSpaceY] // posição que está selecionada pelo mapa do java
-let activeCharMapPosition // Posição do mapa em java do personagem ativado para a jogada
+let activeChar // Posição do mapa em java do personagem ativado para a jogada
 let activeCharHtmlPosition // posição do personagem ativo no html, necessário colocar borda vermelha
 let activeCharLastHtmlPosition // ultima posição do personagem ativado, tirar a borda vermelha
 
@@ -37,16 +37,19 @@ for(let i=0;i<cells.length;i++)
      newTargetSpace=cells[i];
      lastTargetSpace.classList.remove("spaceSelected");
      newTargetSpace.classList.add("spaceSelected");
-     console.log(lastTargetSpace)
+     //console.log(lastTargetSpace)
      console.log(newTargetSpace)    
     let childrens= Array.from(cells[i].children);
-    console.log(childrens)
+    //console.log(childrens)
     targetSpaceX=Number(childrens[0].textContent);
     console.log (targetSpaceX)
 targetSpaceY=Number(childrens[1].textContent)
 console.log(targetSpaceY)
 targetSpaceMap=map[targetSpaceX][targetSpaceY]
 console.log(targetSpaceMap)
+console.log(match)
+//console.log(map)
+//console.log(match.player1Army)
 ;})}
 
 
@@ -388,8 +391,10 @@ p2SetupFinishedBtn.addEventListener("click",()=>
 {
     if(p2DeployArray.length==0)
     {
+        match.startMatch()
         page7.classList.add("hide");
         page8.classList.remove("hide");
+        
     }
 else alert (`You need to deploy all of your unity's`)
 })
