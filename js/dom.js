@@ -12,6 +12,7 @@ let page5=document.querySelector(`#page5`)
 let page6=document.querySelector(`#page6`)
 let page7=document.querySelector(`#page7`)
 let page8=document.querySelector(`#page8`)
+let page9=document.querySelector(`#page9`)
 let player2out= document.querySelectorAll(`.player2output`)
 let player1in= document.querySelectorAll(`.player1output`)
 //query selector dos menus do tabuleiro
@@ -22,67 +23,13 @@ let selectedSpaceInformation = document.querySelector(`#selectedSpaceInformation
 let activateUnitBtn = document.querySelector(`#activateUnitBtn`)
 let endTurnBtn = document.querySelector(`#endTurnBtn`)
 let attackBtn = document.querySelector(`#attackBtn`)
-let endUnitActivation = document.querySelector(`endUnitActivation`)
+let endUnitActivationBtn = document.querySelector(`#endUnitActivationBtn`)
 
 
 
 
 
 const match = new MedievalChess
-
-let map
-map=
-[//   Y  0   1   2   3   4   5   6   7   
-       ["-","-","-","-","-","-","-","-"],//0
-       ["-","-","-","-","-","-","-","-"],//1
-       ["-","-","-","-","-","-","-","-"],//2
-       ["-","-","-","-","-","-","-","-"],//3
-       ["-","-","-","-","-","-","-","-"],//4
-       ["-","-","-","-","-","-","-","-"], //5
-       ["-","-","-","-","-","-","-","-"], //6
-       ["-","-","-","-","-","-","-","-"] //7
-//                                         X       
-]
-
-//logica da seleção do mapa
-
-let cells=document.querySelectorAll(".cell")
-let lastTargetSpace // celula previamente selecionada, necessário tirar a borda
-let newTargetSpace =cells[0] //seleção atual do jogador, possui borda azul
-newTargetSpace.classList.add("spaceSelected") //style da borda azul
-let targetSpaceX =0 // coordenada x da seleção do jogador para fazer a conversa entre java e html
-let targetSpaceY=0 // coordenada y da seleção do jogador para fazer a conversa entre java e html
-let targetSpaceMap=map[targetSpaceX][targetSpaceY] // posição que está selecionada pelo mapa do java
-let activeChar=false // Posição do mapa em java do personagem ativado para a jogada
-let activeCharLastXPosition // ultima posição X do personagem ativado, tirar a borda vermelha
-let activeCharLastYPosition // ultima posição Y do personagem ativado, tirar a borda vermelha
-
-
-//logica do mapa
-for(let i=0;i<cells.length;i++)
-{cells[i].addEventListener('click',()=>{
-     lastTargetSpace=newTargetSpace;
-     newTargetSpace=cells[i];
-     lastTargetSpace.classList.remove("spaceSelected");
-     newTargetSpace.classList.add("spaceSelected");
-     //console.log(lastTargetSpace)
-     console.log(newTargetSpace)    
-    let childrens= Array.from(cells[i].children);
-    //console.log(childrens)
-    targetSpaceX=Number(childrens[0].textContent);
-    console.log (targetSpaceX)
-targetSpaceY=Number(childrens[1].textContent)
-console.log(targetSpaceY)
-targetSpaceMap=map[targetSpaceX][targetSpaceY]
-//console.log(targetSpaceMap)
-console.log(match)
-console.log((map[targetSpaceX][targetSpaceY]).player)
-console.log(match.activePlayer)
-console.log(((map[targetSpaceX][targetSpaceY]).player==this.activePlayer))
-//console.log(map)
-//console.log(match.player1Army)
-
-;})}
 
 
 //logica do jogo daqui para baixo
@@ -167,7 +114,7 @@ addArmy1.addEventListener("click",
         let unitBuilder
         let unitSprite
         if(unitType==="Mage"){
-            unitBuilder= new Mage(match.player1)
+            unitBuilder= new Mage("player1",match.player1)
             unitSprite= unitBuilder.mainImage
         }//acrescentar novas classes aqui
         if(match.player1Army.length!==16){if(match.player1ArmyPoints + unitBuilder.points>match.gameArmyPoints)
@@ -203,14 +150,21 @@ return;
 }
 )
 // Finished deploy button and start Deploy fase arrangements
-P1finishedArmy.addEventListener("click",()=>{if(match.player1ArmyPoints<(match.gameArmyPoints/2)){alert (`please, add more units to your army. Don't make this a suicide mission!`);
-return}
+P1finishedArmy.addEventListener("click",()=>
+{
+if(match.player1ArmyPoints<(match.gameArmyPoints/2))
+{
+    alert (`please, add more units to your army. Don't make this a suicide mission!`);
+return
+}
 else 
 p1DeployArray=Object.assign([],match.player1Army)
 p1lastUnitImage.src=p1DeployArray[p1DeployArray.length-1].mainImage
 p1lastUnitJob.textContent=p1DeployArray[p1DeployArray.length-1].job
 page3.classList.add("hide");
-page4.classList.remove("hide");})
+page4.classList.remove("hide");
+}
+)
 
 // Place P1 units dom
 p1DeployBtn.addEventListener("click",()=>{if(p1DeployArray.length>0)
@@ -309,7 +263,7 @@ addArmy2.addEventListener("click",
         let unitBuilder
         let unitSprite
         if(unitType==="Mage"){
-            unitBuilder= new Mage(match.player2)
+            unitBuilder= new Mage("player2",match.player2)
             unitSprite= unitBuilder.mainImage
         }//acrescentar novas classes aqui
         if(match.player2Army.length!==16){if(match.player2ArmyPoints + unitBuilder.points>match.gameArmyPoints)
@@ -416,13 +370,90 @@ else alert (`You need to deploy all of your unity's`)
 })
 
 //--------------------------------Here ends the game setup and starts the board DOM-----------------------------------------------------------------
-activateUnitBtn.addEventListener(`click`,match.activateChar)
-endTurnBtn.addEventListener(`click`,match.endTurn)
-attackBtn.addEventListener(`click`,()=>{activeChar.attack()})
-endUnitActivation.addEventListener(`click`,()=>{activeChar.endUnitActivation()})
+
+
+function endTurn(){
+       
+    if(match.activePlayer===match.player1){
+    match.player1Army.forEach((element)=>{
+        element.movment=element.charMovment;
+        element.attackMade=element.attackTurn;
+        element.activated=false})
+        match.activePlayer=match.player2
+        match.playerActivationsLast=match.turnActivations;
+    }
+else {match.player2Army.forEach((element)=>{
+    element.movment=element.charMovment;
+    element.attackMade=element.attackTurn;
+    element.activated=false})
+    match.activePlayer=match.player1
+    match.playerActivationsLast=match.turnActivations;}
+}
+
+function activateUnit(){
+    if(match.playerActivationsLast !== 0)
+    { 
+    if(map[targetSpaceX][targetSpaceY]!=="-")
+    {
+if((map[targetSpaceX][targetSpaceY]).playerName==match.activePlayer)
+{
+    if(!((map[targetSpaceX][targetSpaceY]).activated))
+    {
+     activeChar=map[targetSpaceX][targetSpaceY];
+    console.log(activeChar)
+    match.playerActivationsLast--;
+    let boardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+    console.log(boardSpace)
+    document.querySelector(boardSpace).classList.add("charSelected")
+    turnMenu.classList.add("hide");
+    activationMenu.classList.remove("hide");  
+    }
+    else alert (`This unit has already been activated this turn`);
+    return;
+}
+else {alert (`Don't try to mind controller other people! You can't activate another player unit!`);
+    return;}
+}
+else {alert (`Do you also see dead people??? This is an empty space!!`)}
+}
+else {alert (`you already activated all the units you can this turn. Please, be a good competitor and let your friend also play... we will end your turn!`)
+endTurn()}
+}
+function calculateRange(){
+    console.log(activeChar)
+    let rangeX;
+    if((activeChar.positionX-targetSpaceX)<0)
+    {
+    rangeX=(activeChar.positionX-targetSpaceX)*-1
+    }
+    else rangeX= activeChar.positionX-targetSpaceX;
+    console.log(rangeX)
+    let rangeY
+    if((activeChar.positionY-targetSpaceY)<0)
+    {
+    rangeY=(activeChar.positionY-targetSpaceY)*-1
+    }
+    else rangeY= activeChar.positionY-targetSpaceY;
+    console.log(rangeY)
+    totalRange=rangeX+rangeY
+    console.log(totalRange)
+}
+function activeAttack(){ 
+    calculateRange();
+    activeChar.makeAnAttack(totalRange)    
+}
+
+function endUnitActivationDOM(){
+    activeChar.endUnitActivation()
+}
+
+activateUnitBtn.addEventListener(`click`,activateUnit)
+endTurnBtn.addEventListener(`click`,endTurn)
+attackBtn.addEventListener(`click`,activeAttack)
+endUnitActivationBtn.addEventListener(`click`,endUnitActivationDOM)
 document.addEventListener("keydown",function(e)
-{if(e.key=="ArrowLeft"){activeChar.moveRight}
-else if(e.key=="ArrowRight"){activeChar.moveLeft}
-else if(e.key=="ArrowUp"){activeChar.moveUp}
-else if(e.key=="ArrowDown"){activeChar.moveDown}
+{if(e.key=="ArrowLeft"){activeChar.moveLeft()}
+else if(e.key=="ArrowRight"){activeChar.moveRight()}
+else if(e.key=="ArrowUp"){activeChar.moveUp()}
+else if(e.key=="ArrowDown"){activeChar.moveDown()}
 })
