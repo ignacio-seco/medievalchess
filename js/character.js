@@ -1,4 +1,4 @@
-class Character{
+class Unit{
     constructor(job,health,attackTurn,attack,charMovment,range,points,playerId,playerName,mainImage,idle,atkMov,death)
     {
         this.job=job
@@ -113,13 +113,19 @@ return;
 else alert(`there is no movement left for this unit`); 
 return;
 }
-
-makeAnAttack(tr){    
-    if (this.range>=tr)
-    {(map[targetSpaceX][targetSpaceY]).receiveDamage(tr);
+makeAnAttack(tr){ if(this.attackMade>0)
+    {    
+    if (this.range>=tr){
+        (map[targetSpaceX][targetSpaceY]).receiveDamage(tr);
         this.attackMade--;    
-if((this.movment=0)&&(this.attackMade=0)){this.endUnitActivation()}}
-else alert(`you can't attack there`)
+if((this.movment===0)&&(this.attackMade===0))
+{
+    this.endUnitActivation()
+}
+}
+else {alert(`you can't attack there`)}
+} 
+else {alert(`This unit has no attacks left for this turn`)}
 }
 returnDamage(tr){
     if(this.range>=tr){
@@ -178,7 +184,7 @@ receiveDamage(tr){
 
 
 
-class Mage extends Character{
+class Mage extends Unit{
     constructor(playerId,playerName){
         super(`Mage`,50,1,30,1,3,15)
         this.playerId=playerId;
