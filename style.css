@@ -3,6 +3,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+.centerStuff{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  justify-items: center;
+}
+.solidBorder{
+  border: 2px;
+  border-style: solid;
+
+}
 .welcome{
   display: flex;
   flex-direction: column;
@@ -22,11 +34,31 @@ body{
   background-color: antiquewhite;
 }
 .gameForm{
-  padding-top: 6%;
+  padding-top: 0.5%;
+}
+.unitRadioForm{
+  display: flex;
+  flex-direction: row;
+  align-items: center;  
+
+}
+.unitDescription{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+.unitSelectionForm{
+  display:flex;
+  flex-direction:row;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
 }
 .gameForm form{
   display:flex;
-  flex-direction: column;
+  flex-direction:column;
   align-items: center;
   align-content: center;
   justify-items: center;
@@ -57,7 +89,7 @@ input{
     flex-direction: column;
     align-items: center;
     align-content: center;
-    justify-content: center;
+    justify-content: space-around;
     justify-items: center;
     border-style: solid;
 }
@@ -73,17 +105,28 @@ input{
     justify-items: center;
     border-style: solid;
 }
-.leftMenu{
-  width: 25%;
+.ButtonMenu{
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-content: flex-start;
   align-items: flex-start;
   justify-items: flex-start;
 }
+#CommandMenu{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  justify-items: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+  padding:2%;
+  border-style: solid;
+  background-color: aliceblue;
+}
 #board,
 .deployboard{
-    width:45%;
+    width:33%;
     display: flex;
     justify-content: center;
     align-content:center;
@@ -208,4 +251,37 @@ flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   justify-items: flex-start;
+}
+.spaceBarBtn{
+  width:15%;
+}
+.mouseBtn{
+  width:7%;
+}
+.arrowBtn{
+  width: 15%;
+}
+.ESCBtn{
+  width: 9%;
+}
+.PBtn{
+  width: 9%;
+}
+.WASDBtn{
+  width:15%;
+
+}
+.emptySpaceImg{
+  width: 25%;
+}
+#selectedSpaceInformation,
+#activeCharInformation{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  border: 1%;
+  border-style: solid;
 }

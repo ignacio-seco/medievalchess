@@ -18,8 +18,6 @@ let player1in= document.querySelectorAll(`.player1output`)
 //query selector dos menus do tabuleiro
 let turnMenu = document.querySelector(`#turnMenu`)
 let activationMenu = document.querySelector(`#activationMenu`)
-let activeCharInformation = document.querySelector(`#activeCharInformation`)
-let selectedSpaceInformation = document.querySelector(`#selectedSpaceInformation`)
 let activateUnitBtn = document.querySelector(`#activateUnitBtn`)
 let endTurnBtn = document.querySelector(`#endTurnBtn`)
 let attackBtn = document.querySelector(`#attackBtn`)
@@ -90,6 +88,7 @@ player2isout.addEventListener(`click`,()=>
 
 let addArmy1 = document.querySelector(`#addArmy1`)
 let unitType
+let unitType2
 let player10Points=document.querySelector(`#player10Points`)
 player10Points.textContents=match.player1ArmyPoints
 let player1PointsLeft= document.querySelector(`#player1PointsLeft`)
@@ -114,9 +113,11 @@ addArmy1.addEventListener("click",
         let unitBuilder
         let unitSprite
         if(unitType==="Mage"){
-            unitBuilder= new Mage("player1",match.player1)
-            unitSprite= unitBuilder.mainImage
-        }//acrescentar novas classes aqui
+            unitBuilder= new Mage("player1",match.player1)}
+        else if(unitType==="Knight"){
+                unitBuilder= new Knight("player1",match.player1)};
+        unitSprite= unitBuilder.mainImage
+        //---------------------------------------------acrescentar novas classes aqui------------------------------------------------------------
         if(match.player1Army.length!==16){if(match.player1ArmyPoints + unitBuilder.points>match.gameArmyPoints)
         {
             alert ("This unit is too expensive, try a cheaper one or finalize this phase");
@@ -254,29 +255,29 @@ let p2DeployBtn = document.querySelector(`#p2DeployBtn`)
 //botão de acrescentar exercitos
 addArmy2.addEventListener("click",
 ()=> {
-    let radioselected = document.getElementsByName('unit2');      
-    for(i = 0; i < radioselected.length; i++) {
-        if(radioselected[i].checked)
+    let radioselected2 = document.getElementsByName('unit2');      
+    for(i = 0; i < radioselected2.length; i++) {
+        if(radioselected2[i].checked)
         {
-            unitType=radioselected[i].value
+            unitType2=radioselected2[i].value
         }}
-        let unitBuilder
-        let unitSprite
-        if(unitType==="Mage"){
-            unitBuilder= new Mage("player2",match.player2)
-            unitSprite= unitBuilder.mainImage
+        let unitBuilder2
+        let unitSprite2
+        if(unitType2==="Jinn"){
+            unitBuilder2 = new Jinn("player2",match.player2)
+            unitSprite2 = unitBuilder2.mainImage
         }//acrescentar novas classes aqui
-        if(match.player2Army.length!==16){if(match.player2ArmyPoints + unitBuilder.points>match.gameArmyPoints)
+        if(match.player2Army.length!==16){if(match.player2ArmyPoints + unitBuilder2.points>match.gameArmyPoints)
         {
             alert ("This unit is too expensive, try a cheaper one or finalize this phase");
             return;
         }
-        else match.player2Army.push(unitBuilder);
-        match.player2ArmyPoints=match.player2ArmyPoints+unitBuilder.points;
+        else match.player2Army.push(unitBuilder2);
+        match.player2ArmyPoints=match.player2ArmyPoints+unitBuilder2.points;
         player20Points.innerHTML=match.player2ArmyPoints;
         player2PointsLeft.textContent=match.gameArmyPoints-match.player2ArmyPoints;
         spriteAdd= document.createElement('img')
-        spriteAdd.src=unitSprite
+        spriteAdd.src=unitSprite2
         spriteAdd.classList.add("armySprite")
         armyShow2.appendChild(spriteAdd)
         console.log(match)}
@@ -372,8 +373,9 @@ else alert (`You need to deploy all of your unity's`)
 //--------------------------------Here ends the game setup and starts the board DOM-----------------------------------------------------------------
 
 
-function endTurn(){
-       
+function endTurn(){ 
+    if(activeChar!=="-"){
+        activeChar.endUnitActivation()};       
     if(match.activePlayer===match.player1){
     match.player1Army.forEach((element)=>{
         element.movment=element.charMovment;
@@ -381,13 +383,16 @@ function endTurn(){
         element.activated=false})
         match.activePlayer=match.player2
         match.playerActivationsLast=match.turnActivations;
+        document.querySelector(`#playerTurn`).textContent=match.activePlayer
     }
 else {match.player2Army.forEach((element)=>{
     element.movment=element.charMovment;
     element.attackMade=element.attackTurn;
     element.activated=false})
     match.activePlayer=match.player1
-    match.playerActivationsLast=match.turnActivations;}
+    match.playerActivationsLast=match.turnActivations;
+    document.querySelector(`#playerTurn`).textContent=match.activePlayer
+}
 }
 
 function activateUnit(){
@@ -400,13 +405,15 @@ if((map[targetSpaceX][targetSpaceY]).playerName==match.activePlayer)
     if(!((map[targetSpaceX][targetSpaceY]).activated))
     {
      activeChar=map[targetSpaceX][targetSpaceY];
-    console.log(activeChar)
+    //console.log(activeChar)
+    activeChar.activateIdle();
     match.playerActivationsLast--;
     let boardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
-    console.log(boardSpace)
+    //console.log(boardSpace)
     document.querySelector(boardSpace).classList.add("charSelected")
     turnMenu.classList.add("hide");
-    activationMenu.classList.remove("hide");  
+    activationMenu.classList.remove("hide");
+    selectedInformation(activeCharInformation,activeChar)  
     }
     else alert (`This unit has already been activated this turn`);
     return;
@@ -452,8 +459,11 @@ endTurnBtn.addEventListener(`click`,endTurn)
 attackBtn.addEventListener(`click`,activeAttack)
 endUnitActivationBtn.addEventListener(`click`,endUnitActivationDOM)
 document.addEventListener("keydown",function(e)
-{if(e.key=="ArrowLeft"){activeChar.moveLeft()}
-else if(e.key=="ArrowRight"){activeChar.moveRight()}
-else if(e.key=="ArrowUp"){activeChar.moveUp()}
-else if(e.key=="ArrowDown"){activeChar.moveDown()}
+{if(e.key=="ArrowLeft"||e.key=="a"){activeChar.moveLeft()}
+else if(e.key=="ArrowRight"||e.key=="d"){activeChar.moveRight()}
+else if(e.key=="ArrowUp"||e.key=="w"){activeChar.moveUp()}
+else if(e.key=="ArrowDown"||e.key=="s"){activeChar.moveDown()}
+else if(e.key==" "){if(match.activePlayer!=="-"){if(activeChar==="-"){activateUnit()} else{activeAttack()}}}
+else if(e.key=="Escape"){if(activeChar!=="-"){endUnitActivationDOM()} else{return}}
+else if(e.key=="p"){if(match.activePlayer!=="-"){if(activeChar==="-"){endTurn()} else{return}}}
 })

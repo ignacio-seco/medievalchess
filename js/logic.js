@@ -14,10 +14,11 @@ class MedievalChess{
         this.player2Army=[]
         this.player2ArmyPoints=0
         this.gameArmyPoints=100
-        this.activePlayer=""
+        this.activePlayer="-"
     }
 
     startMatch(){
         this.activePlayer=this.player1
+        document.querySelector(`#playerTurn`).textContent=this.activePlayer
     }    
 }
