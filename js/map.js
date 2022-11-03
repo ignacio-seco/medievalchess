@@ -27,7 +27,7 @@ let activeCharLastYPosition // ultima posição Y do personagem ativado, tirar a
 let totalRange // diferença positiva entre as coordenadas do jogador ativo e do target
 let selectedSpaceInformation = document.querySelector(`#selectedSpaceInformation`)
 let emptyCounter = 0
-let emptyImg=["./img/empty space.jpg",`/img/emptySpace2.jpg`,`./img/emptySpace3.jpg`,`./img/emptySpace4.jfif`]
+let emptyImg=["./img/emptyspace.jpg",`./img/emptySpace2.jpg`,`./img/emptySpace3.jpg`,`./img/emptySpace4.jfif`]
 let activeCharInformation = document.querySelector(`#activeCharInformation`)
 let mageTargetX
 let mageTargetY
