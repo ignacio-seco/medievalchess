@@ -31,6 +31,10 @@ let emptyImg=["./img/empty space.jpg",`/img/emptySpace2.jpg`,`./img/emptySpace3.
 let activeCharInformation = document.querySelector(`#activeCharInformation`)
 let mageTargetX
 let mageTargetY
+let attacker// this is necessary to keep in a independent variable so that the attacker cant use movment to run from the return damage
+let p1unitsCounter=100
+let p2unitsCounter=100
+
 
 //Function that actualize the game menu information
 function selectedInformation(space,target){

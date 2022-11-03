@@ -1,8 +1,9 @@
 class Unit{
-    constructor(job,health,attackTurn,attack,charMovment,range,points,playerId,playerName,mainImage,idle,atkMov,hurt,death)
+    constructor(job,maxHealth,health,attackTurn,attack,charMovment,range,points,playerId,playerName,mainImage,idle,atkMov,hurt,death)
     {
         this.job=job
-        this.health=health
+        this.maxHealth=maxHealth
+        this.health=maxHealth
         this.attackTurn=attackTurn
         this.attackMade=attackTurn
         this.attack=attack
@@ -33,7 +34,7 @@ returnToMain(){
 
 }
 endUnitActivation()
-{
+{ if(this.playerId==="player1"){if(p1unitsCounter>1){
     this.attackMade=0
     this.movment=0
     this.activated=true
@@ -43,9 +44,43 @@ endUnitActivation()
     activeChar="-"
     turnMenu.classList.remove("hide");
     activationMenu.classList.add("hide");
-    activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"
+    activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"} 
+    else{
+        this.attackMade=this.attackTurn
+        this.movment=this.charMovment
+        this.activated=false//para que possa ser reativado
+        this.returnToMain()
+        let boardSpace=`#b${this.positionX}${this.positionY}`
+        document.querySelector(boardSpace).classList.remove("charSelected")
+        activeChar="-"
+        turnMenu.classList.remove("hide");
+        activationMenu.classList.add("hide");
+        activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"}}
+        else if(p2unitsCounter>1){
+            this.attackMade=0
+            this.movment=0
+            this.activated=true
+            this.returnToMain()
+            let boardSpace=`#b${this.positionX}${this.positionY}`
+            document.querySelector(boardSpace).classList.remove("charSelected")
+            activeChar="-"
+            turnMenu.classList.remove("hide");
+            activationMenu.classList.add("hide");
+            activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"} 
+            else{
+                this.attackMade=this.attackTurn
+                this.movment=this.charMovment
+                this.activated=false//para que possa ser reativado
+                this.returnToMain()
+                let boardSpace=`#b${this.positionX}${this.positionY}`
+                document.querySelector(boardSpace).classList.remove("charSelected")
+                activeChar="-"
+                turnMenu.classList.remove("hide");
+                activationMenu.classList.add("hide");
+                activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"}
 }    
-moveRight(){if(this.movment>0)
+moveRight(){
+    if(this.movment>0)
         {
             if((this.positionY+1<map[this.positionX].length)&&(map[this.positionX][this.positionY+1]=="-"))
     {
@@ -73,7 +108,8 @@ return;
 else alert(`there is no movement left for this unit`); 
 return;
 }
-moveLeft(){if(this.movment>0){if((this.positionY-1>-1)&&(map[this.positionX][this.positionY-1]=="-")){
+moveLeft(){
+    if(this.movment>0){if((this.positionY-1>-1)&&(map[this.positionX][this.positionY-1]=="-")){
     map[this.positionX][this.positionY]="-";
     let boardSpace=`#b${this.positionX}${this.positionY}`
     document.querySelector(boardSpace).classList.remove("charSelected")
@@ -98,7 +134,8 @@ return;
 else alert(`there is no movement left for this unit`); 
 return;
 }
-moveUp(){if(this.movment>0){if((this.positionX-1>-1)&&(map[this.positionX-1][this.positionY]=="-")){
+moveUp(){
+    if(this.movment>0){if((this.positionX-1>-1)&&(map[this.positionX-1][this.positionY]=="-")){
     map[this.positionX][this.positionY]="-";
     let boardSpace=`#b${this.positionX}${this.positionY}`
     document.querySelector(boardSpace).classList.remove("charSelected")
@@ -123,7 +160,8 @@ return;
 else alert(`there is no movement left for this unit`); 
 return;
 }
-moveDown(){if(this.movment>0){if((this.positionX+1<map.length)&&(map[this.positionX+1][this.positionY]=="-"))
+moveDown(){
+    if(this.movment>0){if((this.positionX+1<map.length)&&(map[this.positionX+1][this.positionY]=="-"))
 {
     map[this.positionX][this.positionY]="-";
     let boardSpace=`#b${this.positionX}${this.positionY}`
@@ -149,7 +187,8 @@ return;
 else alert(`there is no movement left for this unit`); 
 return;
 }
-makeAnAttack(tr){ if(this.attackMade>0)
+makeAnAttack(tr){ 
+    if(this.attackMade>0)
     {
         if(map[targetSpaceX][targetSpaceY]!=="-") 
         {
@@ -157,9 +196,11 @@ makeAnAttack(tr){ if(this.attackMade>0)
     if (this.range>=tr){
         let attackerBoardSpace=`#b${this.positionX}${this.positionY}`
         document.querySelector(attackerBoardSpace).src=this.atkMov;
-        let attacker = this
+        attacker = this;
+        console.log(attacker)
     setTimeout(()=>{
-            document.querySelector(attackerBoardSpace).src=attacker.idle;
+        let newattackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`
+            document.querySelector(newattackerBoardSpace).src=attacker.idle;
             (map[targetSpaceX][targetSpaceY]).receiveDamage(tr);
             attacker.attackMade--;
             selectedInformation(activeCharInformation,activeChar);
@@ -178,22 +219,24 @@ else {alert(`Are you see seeing someone there??`)}
 else {alert(`This unit has no attacks left for this turn`)}
 }
 returnDamage(tr){
+    console.log(attacker)
     if(this.range>=tr){
         let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
         document.querySelector(hurtedBoardSpace).src=this.atkMov;
         let hurted=this
         setTimeout(()=>{
         document.querySelector(hurtedBoardSpace).src=hurted.mainImage;
-        console.log(activeChar)
-        activeChar.health=activeChar.health-(hurted.attack/2);
+        console.log(attacker)
+        attacker.health=attacker.health-(hurted.attack/2);
         selectedInformation(activeCharInformation,activeChar);
-        let attackerBoardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
-        document.querySelector(attackerBoardSpace).src=activeChar.hurt;
-        if(activeChar.health<1){        
+        let attackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`;
+        document.querySelector(attackerBoardSpace).src=attacker.hurt;
+        if(attacker.health<1){        
         setTimeout(()=>{
-        let boardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+        let boardSpace=`#b${attacker.positionX}${attacker.positionY}`;
         document.querySelector(boardSpace).classList.remove("charSelected");
-        activeChar.die();
+        attacker.die();
+        attacker="-"
         activeChar="-";
         turnMenu.classList.remove("hide");
         activationMenu.classList.add("hide");
@@ -215,20 +258,20 @@ returnDamage(tr){
 }
 gameEndTest(){
     let looserPlayerName = document.querySelector(`#looserPlayerName`)
-   let p1units=0 //contador de unidades no mapa de cada jogador
-    let p2units=0 //idem
+   p1unitsCounter=0 //contador de unidades no mapa de cada jogador
+    p2unitsCounter=0 //idem
     for(let n=0;n<map.length;n++){
         for(let k=0;k<map[n].length;k++){
             if(typeof map[n][k]==="object"){
                 if(map[n][k].playerId==="player1"){
-                    p1units++
+                    p1unitsCounter++
                 }
-                else p2units++
+                else p2unitsCounter++
             }
         }
     }
     {
-     if (p1units===0||p2units===0){
+     if (p1unitsCounter===0||p2unitsCounter===0){
         page8.classList.add("hide");
         page9.classList.remove("hide");
         looserPlayerName.textContent=this.playerName
@@ -267,6 +310,19 @@ receiveDamage(tr){
     },1500)
     
 }
+heal(){
+    let healedBoardSpace=`#b${this.positionX}${this.positionY}`
+    document.querySelector(healedBoardSpace).src=this.idle;
+    let healed=this;
+    if(this.health+25>this.maxHealth){
+        this.health=this.maxHealth
+    }
+    else {this.health=this.health+25};
+    setTimeout(()=>{
+        selectedInformation(selectedSpaceInformation,targetSpaceMap);
+        document.querySelector(healedBoardSpace).src=healed.mainImage;
+    },1500) 
+}
 }
 
 
@@ -282,32 +338,51 @@ class Mage extends Unit{
     this.death="./img/spritestouse/Mage/Death/Death.gif";
     this.hurt="./img/spritestouse/Mage/Hurt/hurt.gif"        
     }
-    makeAnAttack(tr){ if(this.attackMade>0)
+    makeAnAttack(tr){ 
+        if(this.attackMade>0)
         {
             if(map[targetSpaceX][targetSpaceY]!=="-") 
-            {
+            { if (this.range>=tr){
             if(!(this.playerName === map[targetSpaceX][targetSpaceY].playerName)){
-        if (this.range>=tr){
             let attackerBoardSpace=`#b${this.positionX}${this.positionY}`
             document.querySelector(attackerBoardSpace).src=this.atkMov;
-            let attacker = this
-            mageTargetX=targetSpaceX
-            mageTargetY=targetSpaceY
+            attacker = this;
+            console.log(attacker)
         setTimeout(()=>{
-                document.querySelector(attackerBoardSpace).src=attacker.idle;
+            let newattackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`
+                document.querySelector(newattackerBoardSpace).src=attacker.idle;
+                (map[targetSpaceX][targetSpaceY]).heal();
+                attacker.attackMade--;
+                selectedInformation(activeCharInformation,activeChar);
+        setTimeout(()=>{if((attacker.movment===0)&&(attacker.attackMade===0))
+        {
+            attacker.endUnitActivation()
+        }},4800);    
+        },1500);        
+    }
+    else {//função de cura
+        let attackerBoardSpace=`#b${this.positionX}${this.positionY}`
+            document.querySelector(attackerBoardSpace).src=this.atkMov;
+            attacker = this;
+            console.log(attacker)
+        setTimeout(()=>{
+            let newattackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`
+                document.querySelector(newattackerBoardSpace).src=attacker.idle;
                 (map[targetSpaceX][targetSpaceY]).receiveDamage(tr);
                 attacker.attackMade--;
                 selectedInformation(activeCharInformation,activeChar);
-        setTimeout(()=>{if(map[mageTargetX][mageTargetY]==="-"){match.playerActivationsLast++}
-            if((attacker.movment===0)&&(attacker.attackMade===0))
+        setTimeout(()=>{if((attacker.movment===0)&&(attacker.attackMade===0))
         {
             attacker.endUnitActivation()
-        }},5000);    
-        },1500);        
-    }
-    else {alert(`you can't attack there`)}
+        }},4800);    
+        },1500);
+        
+
+}
         }
-    else {alert(`Don't try to be a traitor and kill your friends!`)}
+    else { alert(`you can't make your action there`)
+        
+    }
     }
     else {alert(`Are you see seeing someone there??`)}
         } 
@@ -325,32 +400,51 @@ class Jinn extends Unit{
     this.death="./img/spritestouse/jinn_animation/death.gif";
     this.hurt="./img/spritestouse/jinn_animation/hurt.gif"        
     }
-    makeAnAttack(tr){ if(this.attackMade>0)
+    makeAnAttack(tr){ 
+        if(this.attackMade>0)
         {
             if(map[targetSpaceX][targetSpaceY]!=="-") 
-            {
+            { if (this.range>=tr){
             if(!(this.playerName === map[targetSpaceX][targetSpaceY].playerName)){
-        if (this.range>=tr){
             let attackerBoardSpace=`#b${this.positionX}${this.positionY}`
             document.querySelector(attackerBoardSpace).src=this.atkMov;
-            let attacker = this
-            mageTargetX=targetSpaceX
-            mageTargetY=targetSpaceY
+            attacker = this;
+            console.log(attacker)
         setTimeout(()=>{
-                document.querySelector(attackerBoardSpace).src=attacker.idle;
+            let newattackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`
+                document.querySelector(newattackerBoardSpace).src=attacker.idle;
+                (map[targetSpaceX][targetSpaceY]).heal();
+                attacker.attackMade--;
+                selectedInformation(activeCharInformation,activeChar);
+        setTimeout(()=>{if((attacker.movment===0)&&(attacker.attackMade===0))
+        {
+            attacker.endUnitActivation()
+        }},4800);    
+        },1500);        
+    }
+    else {//função de cura
+        let attackerBoardSpace=`#b${this.positionX}${this.positionY}`
+            document.querySelector(attackerBoardSpace).src=this.atkMov;
+            attacker = this;
+            console.log(attacker)
+        setTimeout(()=>{
+            let newattackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`
+                document.querySelector(newattackerBoardSpace).src=attacker.idle;
                 (map[targetSpaceX][targetSpaceY]).receiveDamage(tr);
                 attacker.attackMade--;
                 selectedInformation(activeCharInformation,activeChar);
-        setTimeout(()=>{if(map[mageTargetX][mageTargetY]==="-"){match.playerActivationsLast++}
-            if((attacker.movment===0)&&(attacker.attackMade===0))
+        setTimeout(()=>{if((attacker.movment===0)&&(attacker.attackMade===0))
         {
             attacker.endUnitActivation()
-        }},5000);    
-        },1500);        
-    }
-    else {alert(`you can't attack there`)}
+        }},4800);    
+        },1500);
+        
+
+}
         }
-    else {alert(`Don't try to be a traitor and kill your friends!`)}
+    else { alert(`you can't make your action there`)
+        
+    }
     }
     else {alert(`Are you see seeing someone there??`)}
         } 
@@ -360,7 +454,7 @@ class Jinn extends Unit{
 
 class Knight extends Unit{
     constructor(playerId,playerName){
-        super(`Knight`,100,1,45,1,1,20)
+        super(`Knight`,100,1,52,1,1,20)
         this.playerId=playerId;
         this.playerName=playerName;
         this.mainImage="./img/spritestouse/Knight/mainImage.png";
@@ -369,41 +463,101 @@ class Knight extends Unit{
     this.death="./img/spritestouse/Knight/death.gif";
     this.hurt="./img/spritestouse/Knight/hurt.gif"        
     }
-receiveDamage(tr){
-        let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
-        document.querySelector(hurtedBoardSpace).src=this.hurt;
-        let hurted=this
-        this.health=this.health-(activeChar.attack);
-        setTimeout(()=>{
-            if(hurted.health>0){  
-                hurted.movment=2   
-                hurted.returnDamage(tr)
-                selectedInformation(selectedSpaceInformation,targetSpaceMap);
-                }
-                else hurted.die()
-        },1500)
+    returnDamage(tr){
+        console.log(attacker)
+        if(this.range>=tr){
+            let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
+            document.querySelector(hurtedBoardSpace).src=this.atkMov;
+            let hurted=this
+            setTimeout(()=>{
+            document.querySelector(hurtedBoardSpace).src=hurted.mainImage;
+            console.log(attacker)
+            attacker.health=attacker.health-(hurted.attack/2);
+            selectedInformation(activeCharInformation,activeChar);
+            let attackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`;
+            document.querySelector(attackerBoardSpace).src=attacker.hurt;
+            if(attacker.health<1){        
+            setTimeout(()=>{
+            let boardSpace=`#b${attacker.positionX}${attacker.positionY}`;
+            document.querySelector(boardSpace).classList.remove("charSelected");
+            attacker.die();
+            attacker="-"
+            activeChar="-";
+            turnMenu.classList.remove("hide");
+            activationMenu.classList.add("hide");
+            },1500)
+            }
+            else 
+            {
+            setTimeout(()=>
+            {
+                let attackerBoardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+                document.querySelector(attackerBoardSpace).src=activeChar.idle;
+            },1500)
+            }
         
+        },1500)    
+        }
+        else { this.movment=2
+            let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
+        document.querySelector(hurtedBoardSpace).src=this.mainImage;}
     }
-endUnitActivation()
-{
-    if(this.movment>0){if(this.health>84)
-        {this.health=100}
-    else this.health=this.health+15};
-    this.attackMade=0;
-    this.movment=0;
-    this.activated=true;
-    this.returnToMain();
-    let boardSpace=`#b${this.positionX}${this.positionY}`;
-    document.querySelector(boardSpace).classList.remove("charSelected");
-    activeChar="-";
+    endUnitActivation()
+{ if(this.movment>0){if(this.health+12>this.maxHealth){
+    this.health=this.maxHealth
+}
+else {this.health=this.health+12}
+};
+    if(this.playerId==="player1"){if(p1unitsCounter>1){
+    this.attackMade=0
+    this.movment=0
+    this.activated=true
+    this.returnToMain()
+    let boardSpace=`#b${this.positionX}${this.positionY}`
+    document.querySelector(boardSpace).classList.remove("charSelected")
+    activeChar="-"
     turnMenu.classList.remove("hide");
     activationMenu.classList.add("hide");
-    activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>";
-}
+    activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"} 
+    else{
+        this.attackMade=this.attackTurn
+        this.movment=this.charMovment
+        this.activated=false//para que possa ser reativado
+        this.returnToMain()
+        let boardSpace=`#b${this.positionX}${this.positionY}`
+        document.querySelector(boardSpace).classList.remove("charSelected")
+        activeChar="-"
+        turnMenu.classList.remove("hide");
+        activationMenu.classList.add("hide");
+        activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"}}
+        else if(p2unitsCounter>1){
+            this.attackMade=0
+            this.movment=0
+            this.activated=true
+            this.returnToMain()
+            let boardSpace=`#b${this.positionX}${this.positionY}`
+            document.querySelector(boardSpace).classList.remove("charSelected")
+            activeChar="-"
+            turnMenu.classList.remove("hide");
+            activationMenu.classList.add("hide");
+            activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"} 
+            else{
+                this.attackMade=this.attackTurn
+                this.movment=this.charMovment
+                this.activated=false//para que possa ser reativado
+                this.returnToMain()
+                let boardSpace=`#b${this.positionX}${this.positionY}`
+                document.querySelector(boardSpace).classList.remove("charSelected")
+                activeChar="-"
+                turnMenu.classList.remove("hide");
+                activationMenu.classList.add("hide");
+                activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"}
+} 
+
 }
 class Demon extends Unit{
     constructor(playerId,playerName){
-        super(`Demon`,100,1,45,1,1,20)
+        super(`Demon`,100,1,52,1,1,20)
         this.playerId=playerId;
         this.playerName=playerName;
         this.mainImage="./img/spritestouse/demon/mainImage.gif";
@@ -412,37 +566,96 @@ class Demon extends Unit{
     this.death="./img/spritestouse/demon/death.gif";
     this.hurt="./img/spritestouse/demon/hurt.gif"        
     }
-    receiveDamage(tr){
-        let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
-        document.querySelector(hurtedBoardSpace).src=this.hurt;
-        let hurted=this
-        this.health=this.health-(activeChar.attack);
-        setTimeout(()=>{
-            if(hurted.health>0){  
-                hurted.movment=2   
-                hurted.returnDamage(tr)
-                selectedInformation(selectedSpaceInformation,targetSpaceMap);
-                }
-                else hurted.die()
-        },1500)
+    returnDamage(tr){
+        console.log(attacker)
+        if(this.range>=tr){
+            let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
+            document.querySelector(hurtedBoardSpace).src=this.atkMov;
+            let hurted=this
+            setTimeout(()=>{
+            document.querySelector(hurtedBoardSpace).src=hurted.mainImage;
+            console.log(attacker)
+            attacker.health=attacker.health-(hurted.attack/2);
+            selectedInformation(activeCharInformation,activeChar);
+            let attackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`;
+            document.querySelector(attackerBoardSpace).src=attacker.hurt;
+            if(attacker.health<1){        
+            setTimeout(()=>{
+            let boardSpace=`#b${attacker.positionX}${attacker.positionY}`;
+            document.querySelector(boardSpace).classList.remove("charSelected");
+            attacker.die();
+            attacker="-"
+            activeChar="-";
+            turnMenu.classList.remove("hide");
+            activationMenu.classList.add("hide");
+            },1500)
+            }
+            else 
+            {
+            setTimeout(()=>
+            {
+                let attackerBoardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+                document.querySelector(attackerBoardSpace).src=activeChar.idle;
+            },1500)
+            }
         
+        },1500)    
+        }
+        else { this.movment=2
+            let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
+        document.querySelector(hurtedBoardSpace).src=this.mainImage;}
     }
     endUnitActivation()
-{
-    if(this.movment>0){if(this.health>84)
-        {this.health=100}
-    else this.health=this.health+15};
-    this.attackMade=0;
-    this.movment=0;
-    this.activated=true;
-    this.returnToMain();
-    let boardSpace=`#b${this.positionX}${this.positionY}`;
-    document.querySelector(boardSpace).classList.remove("charSelected");
-    activeChar="-";
+{ if(this.movment>0){if(this.health+12>this.maxHealth){
+    this.health=this.maxHealth
+}
+else {this.health=this.health+12}
+};
+    if(this.playerId==="player1"){if(p1unitsCounter>1){
+    this.attackMade=0
+    this.movment=0
+    this.activated=true
+    this.returnToMain()
+    let boardSpace=`#b${this.positionX}${this.positionY}`
+    document.querySelector(boardSpace).classList.remove("charSelected")
+    activeChar="-"
     turnMenu.classList.remove("hide");
     activationMenu.classList.add("hide");
-    activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>";
-}
+    activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"} 
+    else{
+        this.attackMade=this.attackTurn
+        this.movment=this.charMovment
+        this.activated=false//para que possa ser reativado
+        this.returnToMain()
+        let boardSpace=`#b${this.positionX}${this.positionY}`
+        document.querySelector(boardSpace).classList.remove("charSelected")
+        activeChar="-"
+        turnMenu.classList.remove("hide");
+        activationMenu.classList.add("hide");
+        activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"}}
+        else if(p2unitsCounter>1){
+            this.attackMade=0
+            this.movment=0
+            this.activated=true
+            this.returnToMain()
+            let boardSpace=`#b${this.positionX}${this.positionY}`
+            document.querySelector(boardSpace).classList.remove("charSelected")
+            activeChar="-"
+            turnMenu.classList.remove("hide");
+            activationMenu.classList.add("hide");
+            activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"} 
+            else{
+                this.attackMade=this.attackTurn
+                this.movment=this.charMovment
+                this.activated=false//para que possa ser reativado
+                this.returnToMain()
+                let boardSpace=`#b${this.positionX}${this.positionY}`
+                document.querySelector(boardSpace).classList.remove("charSelected")
+                activeChar="-"
+                turnMenu.classList.remove("hide");
+                activationMenu.classList.add("hide");
+                activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"}
+} 
 }
 
 class Assassin extends Unit{
@@ -456,7 +669,8 @@ class Assassin extends Unit{
     this.death="./img/spritestouse/Rogue/death.gif";
     this.hurt="./img/spritestouse/Rogue/hurt.gif";        
     }
-    makeAnAttack(tr){ if(this.attackMade>0)
+    makeAnAttack(tr){ 
+        if(this.attackMade>0)
         {
             if(map[targetSpaceX][targetSpaceY]!=="-") 
             {
@@ -464,19 +678,18 @@ class Assassin extends Unit{
         if (this.range>=tr){
             let attackerBoardSpace=`#b${this.positionX}${this.positionY}`
             document.querySelector(attackerBoardSpace).src=this.atkMov;
-            let attacker = this
-            mageTargetX=targetSpaceX
-            mageTargetY=targetSpaceY
+            attacker = this;
         setTimeout(()=>{
-                document.querySelector(attackerBoardSpace).src=attacker.idle;
+            let newattackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`
+                document.querySelector(newattackerBoardSpace).src=attacker.idle;
                 (map[targetSpaceX][targetSpaceY]).receiveDamage(tr);
                 attacker.attackMade--;
+                attacker.movment++;
                 selectedInformation(activeCharInformation,activeChar);
-        setTimeout(()=>{if(map[mageTargetX][mageTargetY]==="-"){attacker.movment++}
-            if((attacker.movment===0)&&(attacker.attackMade===0))
+        setTimeout(()=>{if((attacker.movment===0)&&(attacker.attackMade===0))
         {
             attacker.endUnitActivation()
-        }},5000);    
+        }},4800);    
         },1500);        
     }
     else {alert(`you can't attack there`)}
@@ -499,7 +712,8 @@ class Medusa extends Unit{
     this.death="./img/spritestouse/medusa/death.gif";
     this.hurt="./img/spritestouse/medusa/hurt.gif";        
     }
-    makeAnAttack(tr){ if(this.attackMade>0)
+    makeAnAttack(tr){ 
+        if(this.attackMade>0)
         {
             if(map[targetSpaceX][targetSpaceY]!=="-") 
             {
@@ -507,19 +721,18 @@ class Medusa extends Unit{
         if (this.range>=tr){
             let attackerBoardSpace=`#b${this.positionX}${this.positionY}`
             document.querySelector(attackerBoardSpace).src=this.atkMov;
-            let attacker = this
-            mageTargetX=targetSpaceX
-            mageTargetY=targetSpaceY
+            attacker = this;
         setTimeout(()=>{
-                document.querySelector(attackerBoardSpace).src=attacker.idle;
+            let newattackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`
+                document.querySelector(newattackerBoardSpace).src=attacker.idle;
                 (map[targetSpaceX][targetSpaceY]).receiveDamage(tr);
                 attacker.attackMade--;
+                attacker.movment++;
                 selectedInformation(activeCharInformation,activeChar);
-        setTimeout(()=>{if(map[mageTargetX][mageTargetY]==="-"){attacker.movment++}
-            if((attacker.movment===0)&&(attacker.attackMade===0))
+        setTimeout(()=>{if((attacker.movment===0)&&(attacker.attackMade===0))
         {
             attacker.endUnitActivation()
-        }},5000);    
+        }},4800);    
         },1500);        
     }
     else {alert(`you can't attack there`)}
@@ -544,22 +757,24 @@ class Archer extends Unit{
     this.hurt="./img/spritestouse/archer/hurt.gif";        
     }
     returnDamage(tr){
+        console.log(attacker)
         if(this.range>=tr){
             let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
             document.querySelector(hurtedBoardSpace).src=this.atkMov;
             let hurted=this
             setTimeout(()=>{
             document.querySelector(hurtedBoardSpace).src=hurted.mainImage;
-            console.log(activeChar)
-            activeChar.health=activeChar.health-(hurted.attack);
+            console.log(attacker)
+            attacker.health=attacker.health-(hurted.attack);
             selectedInformation(activeCharInformation,activeChar);
-            let attackerBoardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
-            document.querySelector(attackerBoardSpace).src=activeChar.hurt;
-            if(activeChar.health<1){        
+            let attackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`;
+            document.querySelector(attackerBoardSpace).src=attacker.hurt;
+            if(attacker.health<1){        
             setTimeout(()=>{
-            let boardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+            let boardSpace=`#b${attacker.positionX}${attacker.positionY}`;
             document.querySelector(boardSpace).classList.remove("charSelected");
-            activeChar.die();
+            attacker.die();
+            attacker="-"
             activeChar="-";
             turnMenu.classList.remove("hide");
             activationMenu.classList.add("hide");
@@ -593,22 +808,24 @@ class Dragon extends Unit{
     this.hurt="./img/spritestouse/dragon/hurt.gif";        
     }
     returnDamage(tr){
+        console.log(attacker)
         if(this.range>=tr){
             let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
             document.querySelector(hurtedBoardSpace).src=this.atkMov;
             let hurted=this
             setTimeout(()=>{
             document.querySelector(hurtedBoardSpace).src=hurted.mainImage;
-            console.log(activeChar)
-            activeChar.health=activeChar.health-(hurted.attack);
+            console.log(attacker)
+            attacker.health=attacker.health-(hurted.attack);
             selectedInformation(activeCharInformation,activeChar);
-            let attackerBoardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
-            document.querySelector(attackerBoardSpace).src=activeChar.hurt;
-            if(activeChar.health<1){        
+            let attackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`;
+            document.querySelector(attackerBoardSpace).src=attacker.hurt;
+            if(attacker.health<1){        
             setTimeout(()=>{
-            let boardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+            let boardSpace=`#b${attacker.positionX}${attacker.positionY}`;
             document.querySelector(boardSpace).classList.remove("charSelected");
-            activeChar.die();
+            attacker.die();
+            attacker="-"
             activeChar="-";
             turnMenu.classList.remove("hide");
             activationMenu.classList.add("hide");
