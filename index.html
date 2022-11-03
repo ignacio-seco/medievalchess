@@ -86,7 +86,7 @@
                 <div class="unitDescription solidBorder">        
             <input type="radio" name="unit1" value="Mage" class="unitSelection">
         <label for="Mage">
-            <img src="./img/spritestouse/Mage/Attack_Extra/attack_extra3.png" alt="">
+            <img src="./img/spritestouse/Mage/mainImage.png" alt="">
             <p class="centerStuff">Mage!
             <br>health: 50
             <br>attack:30
@@ -95,7 +95,7 @@
             <br>points: 20
             <h4><span>Special Feature</span></h4>
             <br> Mages can attack from a safe place, very far!
-            <br>They can alse heal their friends,<br> just select your friend and make an attack on them!
+            <br>They can alse heal their friends, just select your friend and make an attack on them!
             </p>
         </label>
         </div>
@@ -105,7 +105,7 @@
             <img src="./img/spritestouse/Knight/mainImage.png" alt="">
             <p class="centerStuff">Knight!
             <br>health: 100
-            <br>attack:50
+            <br>attack:52
             <br>movement:1
             <br>attacks p/turn:1
             <br>points: 20
@@ -126,9 +126,8 @@
             <br>attacks p/turn:2
             <br>points: 30
             <h4><span>Special Feature</span></h4>
-            <br>1-Assassins are fast and strong but<br> to be able of being stealth
-            <br>they use no armor...<br> when an assassin kills they get an extra movement
-            <br> to escape the scene
+            <br>1-Assassins are fast and strong but to be able of being stealth
+            <br>they use no armor... when an assassin kills they get an extra movement to escape the scene
             </p>
         </label>
         </div>
@@ -143,8 +142,7 @@
             <br>attacks p/turn:1
             <br>points: 25
             <h4><span>Special Feature</span></h4>
-            <br>1-The arrow is always strong! The archer damage when returning
-            <br> an attack is the same of an normal attack.
+            <br>1-The arrow is always strong! The archer damage when returning an attack is the same of an normal attack.
             </p>
         </label>
         </div>
@@ -154,10 +152,10 @@
         </div>    
     </form>
     </div>
-    <div>
-        <h3>Army points for this match:<span class="armyPointForThisMatch"></span></h3>
-        <h3>Your army points:<span id="player10Points"></span></h3>
-        <h3>Point's left to build your army<span id="player1PointsLeft"></span></h3>
+    <div class="centerStuff">
+        <h3>Army points for this match:  <span class="armyPointForThisMatch"></span></h3>
+        <h3>Your army points:  <span id="player10Points"></span></h3>
+        <h3>Point's left to build your army <span id="player1PointsLeft"></span></h3>
     </div>
     <div class="armyRemoval">
         <h3>Your army:<span class="player1ArmySprites"></span></h3>
@@ -293,7 +291,7 @@
                 <br>points: 20
                 <h4><span>Special Feature</span></h4>
                 <br> Jinn's can attack from a safe place, very far!
-                <br>They can alse heal their friends,<br> just select a friend and make an attack on it!
+                <br>They can alse heal their friends, just select a friend and make an attack on it!
                 </p>
             </label>
             </div>
@@ -303,7 +301,7 @@
                 <img src="./img/spritestouse/demon/mainImage.gif" alt="">
                 <p class="centerStuff">Demon
                 <br>health: 100
-                <br>attack:50
+                <br>attack:52
                 <br>movement:1
                 <br>attacks p/turn:1
                 <br>points: 20
@@ -438,10 +436,6 @@
 
 
    <article id="page8" class="hide">
-    <div id="gameMatchPage">
-    <div id="upperLog">       
-
-    </div>
     <section id="boardGame">
         <div id="leftMenuBoard" class="gameMenu">
         <div id="CommandMenu" class="">
@@ -582,6 +576,10 @@
 
 </div>
 </section>
+<div id="gameMatchPage" class="hide">
+    <div id ="turnChange">
+        <p>Start of <span id="changeTurnName"></span> turn</p> 
+    </div>
 </div>
 </article>
 <article id="page9" class="hide">

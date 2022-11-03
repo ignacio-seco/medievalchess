@@ -1,5 +1,5 @@
 class Unit{
-    constructor(job,maxHealth,health,attackTurn,attack,charMovment,range,points,playerId,playerName,mainImage,idle,atkMov,hurt,death)
+    constructor(job,maxHealth,attackTurn,attack,charMovment,range,points,playerId,playerName,mainImage,idle,atkMov,hurt,death)
     {
         this.job=job
         this.maxHealth=maxHealth
@@ -332,11 +332,11 @@ class Mage extends Unit{
         super(`Mage`,50,1,30,1,3,20)
         this.playerId=playerId;
         this.playerName=playerName;
-        this.mainImage="./img/spritestouse/Mage/mage.png";
-    this.idle="./img/spritestouse/Mage/Idle/idle.gif";
-    this.atkMov="./img/spritestouse/Mage/Attack/attack.gif";
-    this.death="./img/spritestouse/Mage/Death/Death.gif";
-    this.hurt="./img/spritestouse/Mage/Hurt/hurt.gif"        
+        this.mainImage="./img/spritestouse/Mage/mainImage.png";
+    this.idle="./img/spritestouse/Mage/idle.gif";
+    this.atkMov="./img/spritestouse/Mage/attack.gif";
+    this.death="./img/spritestouse/Mage/death.gif";
+    this.hurt="./img/spritestouse/Mage/hurt.gif"        
     }
     makeAnAttack(tr){ 
         if(this.attackMade>0)
@@ -351,7 +351,7 @@ class Mage extends Unit{
         setTimeout(()=>{
             let newattackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`
                 document.querySelector(newattackerBoardSpace).src=attacker.idle;
-                (map[targetSpaceX][targetSpaceY]).heal();
+                (map[targetSpaceX][targetSpaceY]).receiveDamage(tr);
                 attacker.attackMade--;
                 selectedInformation(activeCharInformation,activeChar);
         setTimeout(()=>{if((attacker.movment===0)&&(attacker.attackMade===0))
@@ -368,7 +368,7 @@ class Mage extends Unit{
         setTimeout(()=>{
             let newattackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`
                 document.querySelector(newattackerBoardSpace).src=attacker.idle;
-                (map[targetSpaceX][targetSpaceY]).receiveDamage(tr);
+                (map[targetSpaceX][targetSpaceY]).heal();
                 attacker.attackMade--;
                 selectedInformation(activeCharInformation,activeChar);
         setTimeout(()=>{if((attacker.movment===0)&&(attacker.attackMade===0))
@@ -413,7 +413,7 @@ class Jinn extends Unit{
         setTimeout(()=>{
             let newattackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`
                 document.querySelector(newattackerBoardSpace).src=attacker.idle;
-                (map[targetSpaceX][targetSpaceY]).heal();
+                (map[targetSpaceX][targetSpaceY]).receiveDamage(tr);
                 attacker.attackMade--;
                 selectedInformation(activeCharInformation,activeChar);
         setTimeout(()=>{if((attacker.movment===0)&&(attacker.attackMade===0))
@@ -430,7 +430,7 @@ class Jinn extends Unit{
         setTimeout(()=>{
             let newattackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`
                 document.querySelector(newattackerBoardSpace).src=attacker.idle;
-                (map[targetSpaceX][targetSpaceY]).receiveDamage(tr);
+                (map[targetSpaceX][targetSpaceY]).heal();
                 attacker.attackMade--;
                 selectedInformation(activeCharInformation,activeChar);
         setTimeout(()=>{if((attacker.movment===0)&&(attacker.attackMade===0))

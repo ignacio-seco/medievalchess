@@ -22,6 +22,8 @@ let activateUnitBtn = document.querySelector(`#activateUnitBtn`)
 let endTurnBtn = document.querySelector(`#endTurnBtn`)
 let attackBtn = document.querySelector(`#attackBtn`)
 let endUnitActivationBtn = document.querySelector(`#endUnitActivationBtn`)
+let gameMatchPage = document.querySelector(`#gameMatchPage`)
+let changeTurnName = document.querySelector(`#changeTurnName`)
 
 
 
@@ -397,6 +399,10 @@ function endTurn(){
         match.activePlayer=match.player2
         match.playerActivationsLast=match.turnActivations;
         document.querySelector(`#playerTurn`).textContent=match.activePlayer
+        changeTurnName.textContent=match.activePlayer;
+        gameMatchPage.classList.remove("hide");
+        setTimeout(()=>{gameMatchPage.classList.add("hide")},2000)
+
     }
 else {match.player2Army.forEach((element)=>{
     element.movment=element.charMovment;
@@ -404,7 +410,10 @@ else {match.player2Army.forEach((element)=>{
     element.activated=false})
     match.activePlayer=match.player1
     match.playerActivationsLast=match.turnActivations;
-    document.querySelector(`#playerTurn`).textContent=match.activePlayer
+    document.querySelector(`#playerTurn`).textContent=match.activePlayer;
+    changeTurnName.textContent=match.activePlayer;
+    gameMatchPage.classList.remove("hide");
+    setTimeout(()=>{gameMatchPage.classList.add("hide")},2000)
 }
 }
 
@@ -436,8 +445,7 @@ else {alert (`Don't try to mind controller other people! You can't activate anot
 }
 else {alert (`Do you also see dead people??? This is an empty space!!`)}
 }
-else {alert (`you already activated all the units you can this turn. Please, be a good competitor and let your friend also play... we will end your turn!`)
-endTurn()}
+else {endTurn()}
 }
 function calculateRange(){
     console.log(activeChar)
