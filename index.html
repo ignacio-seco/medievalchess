@@ -81,6 +81,7 @@
             <br>attacks p/turn:1
             <br>points: 20
             <h4><span>Special Feature</span></h4>
+            <br> Jinn's can attack from a safe place, very far!
             <br>When a mage kills their targets,<br> the player gets an extra activation!
             </p>
         </label>
@@ -98,6 +99,39 @@
             <h4><span>Special Feature</span></h4>
             <br>1-When the knigth is attacked he gets<br> an extra movement for the next turn!
             <br>2-If deactivated without moving<br> he recovers 15 points of health!
+            </p>
+        </label>
+        </div>
+        <div class="unitDescription solidBorder">        
+            <input type="radio" name="unit1" value="Assassin" class="unitSelection">
+        <label for="Assassin">
+            <img src="./img/spritestouse/Rogue/mainImage.gif" alt="">
+            <p class="centerStuff">Assassin!
+            <br>health: 10
+            <br>attack:50
+            <br>movement:4
+            <br>attacks p/turn:2
+            <br>points: 30
+            <h4><span>Special Feature</span></h4>
+            <br>1-Assassins are fast and strong but<br> to be able of being stealth
+            <br>they use no armor...<br> when an assassin kills they get an extra movement
+            <br> to escape the scene
+            </p>
+        </label>
+        </div>
+        <div class="unitDescription solidBorder">        
+            <input type="radio" name="unit1" value="Archer" class="unitSelection">
+        <label for="Archer">
+            <img src="./img/spritestouse/archer/mainImage.gif" alt="">
+            <p class="centerStuff">Archer!
+            <br>health: 60
+            <br>attack:46
+            <br>movement:2
+            <br>attacks p/turn:1
+            <br>points: 25
+            <h4><span>Special Feature</span></h4>
+            <br>1-The arrow is always strong! The archer damage when returning
+            <br> an attack is the same of an normal attack.
             </p>
         </label>
         </div>
@@ -220,23 +254,80 @@
                 You can build your army until the sum of the units get the same ammount of the match points.                
             </p>
         </div>
-    <div class="gameForm">
-        <form action="">
-        <input type="radio" name="unit2" value="Jinn" class="unitSelection">
-        <label for="Jinn"><img src="./img/spritestouse/jinn_animation/Flight1.png" alt="">
-            <p class="centerStuff">Jinn!
-            <br>health: 50
-            <br>attack:30
-            <br>movement:1
-            <br>attacks p/turn:1
-            <br>points: 20
-            <h4><span>Special Feature</span></h4>
-            <br>When a Jinn kills their targets,<br>the player gets an extra activation!
-            </p>
-        </label>
-        <button type="button" id="addArmy2">Add on <span class="player2output"></span> Army!!</button>
-    </form>
-    </div>
+        <div class="unitSelectionForm">
+            <form action="">
+                <div class="unitRadioForm">
+                    <div class="unitDescription solidBorder">        
+                <input type="radio" name="unit2" value="Jinn" class="unitSelection">
+            <label for="Jinn">
+                <img src="./img/spritestouse/jinn_animation/mainImage.png" alt="">
+                <p class="centerStuff">Jinn!
+                <br>health: 50
+                <br>attack:30
+                <br>movement:1
+                <br>attacks p/turn:1
+                <br>points: 20
+                <h4><span>Special Feature</span></h4>
+                <br> Jinn's can attack from a safe place, very far!
+                <br>When a Jinn kills their targets,<br> the player gets an extra activation!
+                </p>
+            </label>
+            </div>
+            <div class="unitDescription solidBorder">        
+                <input type="radio" name="unit2" value="Demon" class="unitSelection">
+            <label for="Demon">
+                <img src="./img/spritestouse/demon/mainImage.gif" alt="">
+                <p class="centerStuff">Demon
+                <br>health: 100
+                <br>attack:50
+                <br>movement:1
+                <br>attacks p/turn:1
+                <br>points: 20
+                <h4><span>Special Feature</span></h4>
+                <br>1-When the Demon is attacked he gets<br> an extra movement for the next turn!
+                <br>2-If deactivated without moving<br> he recovers 15 points of health!
+                </p>
+            </label>
+            </div>
+            <div class="unitDescription solidBorder">        
+                <input type="radio" name="unit2" value="Medusa" class="unitSelection">
+            <label for="Medusa">
+                <img src="./img/spritestouse/medusa/mainImage.gif" alt="">
+                <p class="centerStuff">Medusa!
+                <br>health: 10
+                <br>attack:50
+                <br>movement:4
+                <br>attacks p/turn:2
+                <br>points: 30
+                <h4><span>Special Feature</span></h4>
+                <br>1-Medusas are fast and strong but<br> to be able of being stealth
+                <br>they use no armor...<br> when a medusa kills they get an extra movement
+                <br> to escape the scene
+                </p>
+            </label>
+            </div>
+            <div class="unitDescription solidBorder">        
+                <input type="radio" name="unit2" value="Dragon" class="unitSelection">
+            <label for="Dragon">
+                <img src="./img/spritestouse/dragon/mainImage.gif" alt="">
+                <p class="centerStuff">Dragon!
+                <br>health: 60
+                <br>attack:46
+                <br>movement:2
+                <br>attacks p/turn:1
+                <br>points: 25
+                <h4><span>Special Feature</span></h4>
+                <br>1-The fire is always strong! The Dragon damage when returning
+                <br> an attack is the same of an normal attack.
+                </p>
+            </label>
+            </div>
+            </div>
+            <div class="centerStuff" >
+            <button type="button" id="addArmy2">Add on <span class="player1output"></span> Army!!</button>
+            </div>    
+        </form>
+        </div>
     <div>
         <h3>Army points for this match:<span class="armyPointForThisMatch"></span></h3>
         <h3>Your army points:<span id="player20Points"></span></h3>

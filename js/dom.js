@@ -112,12 +112,17 @@ addArmy1.addEventListener("click",
         }}
         let unitBuilder
         let unitSprite
+        //-------------------------------- acrescentar novas clases nessa área-----------------------------------------------------------------
         if(unitType==="Mage"){
             unitBuilder= new Mage("player1",match.player1)}
         else if(unitType==="Knight"){
-                unitBuilder= new Knight("player1",match.player1)};
+                unitBuilder= new Knight("player1",match.player1)}
+                else if(unitType==="Assassin"){
+                    unitBuilder= new Assassin("player1",match.player1)}
+                    else if(unitType==="Archer"){
+                        unitBuilder= new Archer("player1",match.player1)};
+                //---------------------------------------------acrescentar novas classes aqui------------------------------------------------------------
         unitSprite= unitBuilder.mainImage
-        //---------------------------------------------acrescentar novas classes aqui------------------------------------------------------------
         if(match.player1Army.length!==16){if(match.player1ArmyPoints + unitBuilder.points>match.gameArmyPoints)
         {
             alert ("This unit is too expensive, try a cheaper one or finalize this phase");
@@ -263,10 +268,18 @@ addArmy2.addEventListener("click",
         }}
         let unitBuilder2
         let unitSprite2
+        //-----------------------------------------acrescentar novas classes abaixo--------------------------------------------------------------------
         if(unitType2==="Jinn"){
-            unitBuilder2 = new Jinn("player2",match.player2)
-            unitSprite2 = unitBuilder2.mainImage
-        }//acrescentar novas classes aqui
+            unitBuilder2 = new Jinn("player2",match.player2)}
+            else if(unitType2==="Demon"){
+                unitBuilder2 = new Demon("player2",match.player2)}
+                else if(unitType2==="Medusa"){
+                    unitBuilder2 = new Medusa("player2",match.player2)}
+                    else if(unitType2==="Dragon"){
+                        unitBuilder2 = new Dragon("player2",match.player2)}
+                    ;
+            //----------------------------------acrescentar novas classes acima---------------------------------------------------------------------------
+        unitSprite2 = unitBuilder2.mainImage
         if(match.player2Army.length!==16){if(match.player2ArmyPoints + unitBuilder2.points>match.gameArmyPoints)
         {
             alert ("This unit is too expensive, try a cheaper one or finalize this phase");

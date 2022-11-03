@@ -39,7 +39,9 @@ body{
 .unitRadioForm{
   display: flex;
   flex-direction: row;
-  align-items: center;  
+  align-items: center;
+  align-content: space-around;
+  justify-content: space-around;  
 
 }
 .unitDescription{
@@ -47,6 +49,7 @@ body{
   flex-direction: column;
   text-align: center;
   align-items: center;
+  width:20%
 }
 .unitSelectionForm{
   display:flex;

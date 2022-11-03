@@ -534,7 +534,7 @@ class Medusa extends Unit{
 
 class Archer extends Unit{
     constructor(playerId,playerName){
-        super(`Archer`,60,2,46,2,1,25)
+        super(`Archer`,60,1,46,2,2,25)
         this.playerId=playerId;
         this.playerName=playerName;
         this.mainImage="./img/spritestouse/archer/mainImage.gif";
@@ -543,12 +543,47 @@ class Archer extends Unit{
     this.death="./img/spritestouse/archer/death.gif";
     this.hurt="./img/spritestouse/archer/hurt.gif";        
     }
-
+    returnDamage(tr){
+        if(this.range>=tr){
+            let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
+            document.querySelector(hurtedBoardSpace).src=this.atkMov;
+            let hurted=this
+            setTimeout(()=>{
+            document.querySelector(hurtedBoardSpace).src=hurted.mainImage;
+            console.log(activeChar)
+            activeChar.health=activeChar.health-(hurted.attack);
+            selectedInformation(activeCharInformation,activeChar);
+            let attackerBoardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+            document.querySelector(attackerBoardSpace).src=activeChar.hurt;
+            if(activeChar.health<1){        
+            setTimeout(()=>{
+            let boardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+            document.querySelector(boardSpace).classList.remove("charSelected");
+            activeChar.die();
+            activeChar="-";
+            turnMenu.classList.remove("hide");
+            activationMenu.classList.add("hide");
+            },1500)
+            }
+            else 
+            {
+            setTimeout(()=>
+            {
+                let attackerBoardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+                document.querySelector(attackerBoardSpace).src=activeChar.idle;
+            },1500)
+            }
+        
+        },1500)    
+        }
+        else {let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
+        document.querySelector(hurtedBoardSpace).src=this.mainImage;}
+    }
 }
 
 class Dragon extends Unit{
     constructor(playerId,playerName){
-        super(`Dragon`,60,2,46,2,1,25)
+        super(`Dragon`,60,1,46,2,2,25)
         this.playerId=playerId;
         this.playerName=playerName;
         this.mainImage="./img/spritestouse/dragon/mainImage.gif";
@@ -557,5 +592,40 @@ class Dragon extends Unit{
     this.death="./img/spritestouse/dragon/death.gif";
     this.hurt="./img/spritestouse/dragon/hurt.gif";        
     }
-
+    returnDamage(tr){
+        if(this.range>=tr){
+            let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
+            document.querySelector(hurtedBoardSpace).src=this.atkMov;
+            let hurted=this
+            setTimeout(()=>{
+            document.querySelector(hurtedBoardSpace).src=hurted.mainImage;
+            console.log(activeChar)
+            activeChar.health=activeChar.health-(hurted.attack);
+            selectedInformation(activeCharInformation,activeChar);
+            let attackerBoardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+            document.querySelector(attackerBoardSpace).src=activeChar.hurt;
+            if(activeChar.health<1){        
+            setTimeout(()=>{
+            let boardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+            document.querySelector(boardSpace).classList.remove("charSelected");
+            activeChar.die();
+            activeChar="-";
+            turnMenu.classList.remove("hide");
+            activationMenu.classList.add("hide");
+            },1500)
+            }
+            else 
+            {
+            setTimeout(()=>
+            {
+                let attackerBoardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+                document.querySelector(attackerBoardSpace).src=activeChar.idle;
+            },1500)
+            }
+        
+        },1500)    
+        }
+        else {let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
+        document.querySelector(hurtedBoardSpace).src=this.mainImage;}
+    }
 }
