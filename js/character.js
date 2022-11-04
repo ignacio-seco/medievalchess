@@ -325,7 +325,7 @@ heal(){
 }
 }
 
-
+//---------------------------From down here just new units constructed with the Unit class-----------
 
 class Mage extends Unit{
     constructor(playerId,playerName){
@@ -451,7 +451,6 @@ class Jinn extends Unit{
     else {alert(`This unit has no attacks left for this turn`)}
     }      
 }
-
 class Knight extends Unit{
     constructor(playerId,playerName){
         super(`Knight`,100,1,52,1,1,20)
@@ -657,7 +656,6 @@ else {this.health=this.health+12}
                 activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"}
 } 
 }
-
 class Assassin extends Unit{
     constructor(playerId,playerName){
         super(`Assassin`,10,2,50,4,1,30)
@@ -744,7 +742,6 @@ class Medusa extends Unit{
     else {alert(`This unit has no attacks left for this turn`)}
     }
 }
-
 class Archer extends Unit{
     constructor(playerId,playerName){
         super(`Archer`,60,1,46,2,2,25)
@@ -795,7 +792,6 @@ class Archer extends Unit{
         document.querySelector(hurtedBoardSpace).src=this.mainImage;}
     }
 }
-
 class Dragon extends Unit{
     constructor(playerId,playerName){
         super(`Dragon`,60,1,46,2,2,25)

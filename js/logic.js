@@ -19,6 +19,7 @@ class MedievalChess{
 
     startMatch(){
         this.activePlayer=this.player1
-        document.querySelector(`#playerTurn`).textContent=this.activePlayer
+        document.querySelector(`#playerTurn`).textContent=this.activePlayer;
+        document.querySelector(`#activationsLast`).textContent=this.playerActivationsLast;
     }    
 }

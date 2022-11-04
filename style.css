@@ -3,6 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
+#page3,
+#page6{
+  margin-bottom: 5%;
+}
 .centerStuff{
   display:flex;
   flex-direction: column;
@@ -71,19 +75,19 @@ body{
 input{
   padding: 1%;
 }
-#boardGame,
-.armyDeploy
+#boardGame
 {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-around;
     align-content: flex-start;
-    justify-items: flex-start;
+    justify-items: center;
     align-items: center;
     flex-direction: row;
     margin-left: 1%;
     background-color: antiquewhite;
     width: 100%;
 }
+
 .gameMenu
 {
   width:25%;
@@ -109,6 +113,16 @@ input{
     justify-items: center;
     border-style: solid;
 }
+button{
+ cursor:pointer;
+ padding:5px;
+ box-shadow:3px 3px 1px rgba(0, 0, 0, 0.7) ;
+  border-radius: 5px; 
+}
+.deployMenu button
+{width: 80%;
+  
+}
 .ButtonMenu{
   display: flex;
   flex-direction: column;
@@ -119,6 +133,7 @@ input{
 }
 #CommandMenu{
   display: flex;
+  position: static;
   flex-direction: column;
   justify-content: flex-start;
   justify-items: flex-start;
@@ -195,11 +210,13 @@ input{
 border-style: solid;
 border-color: blue;
 border: 5%;
+z-index: 16;
 }
 .charSelected{
   border-style: solid;
 border-color: rgb(255, 0, 0);
 border: 5%;
+z-index: 15;
 
 }
 
@@ -282,12 +299,16 @@ flex-direction: column;
 #activeCharInformation{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   justify-items: center;
   align-content: center;
   align-items: center;
   border: 1%;
   border-style: solid;
+  width: 80%;
+  height: 40%;
+  background-color: aliceblue;
+  box-shadow: 10px 5px 5px black;
 }
 .instructions{
   width: 100%;
@@ -303,10 +324,59 @@ flex-direction: column;
 #turnChange{
   position: absolute;
   bottom: 40%;
-  left: 28%;
+  left: 35.5%;
   text-align: center;
   width: 32%;
   border: 10px solid #ad2121;
   font-size: 5rem;
   z-index: 100;
+}
+
+#activateUnitBtn,
+#attackBtn{
+  padding:3%;
+  background-color:darkgrey;
+  width: 70%;
+}
+#endTurnBtn,
+#endUnitActivationBtn{
+  background-color:#ad2121;
+  width: 70%;
+  padding: 2%
+}
+#turnMenu{
+  display: flex;
+  position:relative;
+  flex-direction: column;
+  align-items: center;
+}
+#activationMenu{
+  display: flex;
+  position:relative;
+  top:-25%;
+  flex-direction: column;
+  align-items: center;
+}
+#leftMenuBoard{
+  display: flex;
+  justify-items: center;
+  align-content:space-between;
+  align-items: center;
+  justify-content: center;
+}
+.armyDeploy
+{
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    justify-items: center;
+    align-items: center;
+    flex-direction: row;
+    margin-left: 1%;
+    background-color: antiquewhite;
+    width: 100%;
+}
+#board h2{
+  font-size: 2rem;
+  text-align: center;
 }

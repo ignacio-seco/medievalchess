@@ -24,6 +24,7 @@ let attackBtn = document.querySelector(`#attackBtn`)
 let endUnitActivationBtn = document.querySelector(`#endUnitActivationBtn`)
 let gameMatchPage = document.querySelector(`#gameMatchPage`)
 let changeTurnName = document.querySelector(`#changeTurnName`)
+let activationsLast = document.querySelector(`#activationsLast`)
 
 
 
@@ -401,6 +402,7 @@ function endTurn(){
         document.querySelector(`#playerTurn`).textContent=match.activePlayer
         changeTurnName.textContent=match.activePlayer;
         gameMatchPage.classList.remove("hide");
+        activationsLast.textContent=match.playerActivationsLast;
         setTimeout(()=>{gameMatchPage.classList.add("hide")},2000)
 
     }
@@ -413,6 +415,7 @@ else {match.player2Army.forEach((element)=>{
     document.querySelector(`#playerTurn`).textContent=match.activePlayer;
     changeTurnName.textContent=match.activePlayer;
     gameMatchPage.classList.remove("hide");
+    activationsLast.textContent=match.playerActivationsLast;
     setTimeout(()=>{gameMatchPage.classList.add("hide")},2000)
 }
 }
@@ -430,6 +433,7 @@ if((map[targetSpaceX][targetSpaceY]).playerName==match.activePlayer)
     //console.log(activeChar)
     activeChar.activateIdle();
     match.playerActivationsLast--;
+    activationsLast.textContent=match.playerActivationsLast
     let boardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
     //console.log(boardSpace)
     document.querySelector(boardSpace).classList.add("charSelected")

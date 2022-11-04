@@ -162,9 +162,11 @@
         <div class="armyShow" id="armyShow1">          
 
         </div>
+
         <button id="removeP1Army">Remove last unit!</button>
+        <button id="p1finishedArmy">My army is read to deploy!</button>
+
     </div>
-    <button id="p1finishedArmy">My army is read to deploy!</button>
     </section>
  </article>
 
@@ -187,7 +189,7 @@
         <img id="p1lastUnitImage" src=""></img>
         <p id="p1lastUnitJob"></p>
         
-         <button id="p1DeployBtn"> deploy this unit here!</button>
+         <button id="p1DeployBtn"> Deploy this unit here!</button>
          <button id="p1UnityReturnBtn">Return selected Unity to my barracks!</button>
          <button id="p1SetupFinishedBtn">Everything is in place!</button>
  
@@ -361,8 +363,9 @@
 
         </div>
         <button id="removeP2Army">Remove last unit!</button>
+        <button id="p2finishedArmy">My army is read to deploy!</button>
     </div>
-    <button id="p2finishedArmy">My army is read to deploy!</button>
+    
     </section>
  </article>
 
@@ -385,7 +388,7 @@
         <img id="p2lastUnitImage" src=""></img>
         <p id="p2lastUnitJob"></p>
         
-         <button id="p2DeployBtn"> deploy this unit here!</button>
+         <button id="p2DeployBtn"> Deploy this unit here!</button>
          <button id="p2UnityReturnBtn">Return selected Unity to my barracks!</button>
          <button id="p2SetupFinishedBtn">Everything is in place!</button>
  
@@ -443,7 +446,7 @@
             <p>Select one of your Units with <img src="./img/mouse.png" class="mouseBtn"> and activate it with <img src="./img/Space.png" class="spaceBarBtn">.<br>
                Move your units on the board with  <img src="./img/Arrow.png" class="arrowBtn"> or <img src="./img/WASD.png" class="WASDBtn">.<br>
                Select a place to attack with the <img src="./img/mouse.png" class="mouseBtn"> and attack it with the <img src="./img/Space.png" class="spaceBarBtn">.<br>
-               If you wish to deactivate your Unit before doing all their moves and/or attacks, use the <img src="./img/ESC.png" class="ESCBtn">.<br>
+               If you wish to deactivate your Unit before doing all their moves and/or attacks, use <img src="./img/ESC.png" class="ESCBtn">.<br>
                To end your Player turn, you can press <img src="./img/P.png" class="PBtn"></p>
         </div>
     <div id="turnMenu" class="ButtonMenu">
@@ -452,13 +455,16 @@
         <button id="endTurnBtn"><img src="./img/P.png" class="PBtn">End your player turn</button>
     </div>
     <div id="activationMenu" class="ButtonMenu hide">
+        <h2>Button Menu</h2>
          <button id="attackBtn"><img src="./img/Space.png" class="spaceBarBtn">Attack target Space!</button>
         <button id="endUnitActivationBtn"><img src="./img/ESC.png" class="ESCBtn">End unit activation</button>
 
     </div>
     </div>
     <div id="board">
-        <h2>It is <span id="playerTurn"></span> turn!</h2>
+        <div id="turnInformation">
+        <h2>It is <span id="playerTurn"></span> turn! <span id="activationsLast"></span> activations last!</h2>
+        </div>
         <table>
         <thead class= "coordinates">
             <th class="x-y"> Y→<br> X↓</th>
