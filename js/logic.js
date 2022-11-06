@@ -15,11 +15,18 @@ class MedievalChess{
         this.player2ArmyPoints=0
         this.gameArmyPoints=100
         this.activePlayer="-"
+        this.typeOfGame="A"
     }
 
-    startMatch(){
+    startMatchA(){
         this.activePlayer=this.player1
         document.querySelector(`#playerTurn`).textContent=this.activePlayer;
         document.querySelector(`#activationsLast`).textContent=this.playerActivationsLast;
+    }
+    startMatchB(){
+        document.querySelector(`#playerTurn`).classList.add("hide");
+        turnMenu.classList.add("hide");
+        activationMenu.classList.remove("hide")
+
     }    
 }

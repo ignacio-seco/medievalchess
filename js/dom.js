@@ -6,6 +6,7 @@ let gameArmyPointsSet=document.querySelector(`#gameArmyPointsSet`)
 let armyPointForThisMatch = document.querySelectorAll(`.armyPointForThisMatch`)
 let getGameData = document.querySelector (`#getGameData`)
 let page2=document.querySelector(`#page2`)
+let gameSelector=document.querySelector(`#gameSelector`)
 let page3=document.querySelector(`#page3`)
 let page4=document.querySelector(`#page4`)
 let page5=document.querySelector(`#page5`)
@@ -23,7 +24,6 @@ let endTurnBtn = document.querySelector(`#endTurnBtn`)
 let attackBtn = document.querySelector(`#attackBtn`)
 let endUnitActivationBtn = document.querySelector(`#endUnitActivationBtn`)
 let gameMatchPage = document.querySelector(`#gameMatchPage`)
-let changeTurnName = document.querySelector(`#changeTurnName`)
 let activationsLast = document.querySelector(`#activationsLast`)
 
 
@@ -75,9 +75,30 @@ player2out.textContent=match.player2
 player1in.textContent=match.player1
 
 page1.classList.add("hide");
-page2.classList.remove("hide");
+gameSelector.classList.remove("hide");
 console.log(match)   
 } )
+
+//setting up - game selector
+let  typeABtn= document.querySelector(`#typeABtn`)
+typeABtn.addEventListener(`click`,()=>
+{
+    match.typeOfGame="A";
+    gameSelector.classList.add("hide");
+    page2.classList.remove("hide");
+    console.log(match.typeOfGame)  
+})
+let  typeBBtn= document.querySelector(`#typeBBtn`)
+typeBBtn.addEventListener(`click`,()=>
+{
+    match.typeOfGame="B";
+    console.log(match.typeOfGame)
+    gameSelector.classList.add("hide");
+    page2.classList.remove("hide");  
+})
+
+
+
 
 //setting up - segunda página, player 2 is out?
 let  player2isout= document.querySelector(`#player2isout`)
@@ -117,13 +138,13 @@ addArmy1.addEventListener("click",
         let unitSprite
         //-------------------------------- acrescentar novas clases nessa área-----------------------------------------------------------------
         if(unitType==="Mage"){
-            unitBuilder= new Mage("player1",match.player1)}
+            unitBuilder= new Mage("player1",match.player1,match.typeOfGame)}
         else if(unitType==="Knight"){
-                unitBuilder= new Knight("player1",match.player1)}
+                unitBuilder= new Knight("player1",match.player1,match.typeOfGame)}
                 else if(unitType==="Assassin"){
-                    unitBuilder= new Assassin("player1",match.player1)}
+                    unitBuilder= new Assassin("player1",match.player1,match.typeOfGame)}
                     else if(unitType==="Archer"){
-                        unitBuilder= new Archer("player1",match.player1)};
+                        unitBuilder= new Archer("player1",match.player1,match.typeOfGame)};
                 //---------------------------------------------acrescentar novas classes aqui------------------------------------------------------------
         unitSprite= unitBuilder.mainImage
         if(match.player1Army.length!==16){if(match.player1ArmyPoints + unitBuilder.points>match.gameArmyPoints)
@@ -166,13 +187,20 @@ if(match.player1ArmyPoints<(match.gameArmyPoints/2))
     alert (`please, add more units to your army. Don't make this a suicide mission!`);
 return
 }
-else 
+else
+speedBooster1 = match.player1Army.length*0.0002
+for(let i=0;i<match.player1Army.length;i++)
+{
+    match.player1Army[i].activationTime+=speedBooster1;
+    speedBooster1-=0.0002
+}
+{ 
 p1DeployArray=Object.assign([],match.player1Army)
 p1lastUnitImage.src=p1DeployArray[p1DeployArray.length-1].mainImage
 p1lastUnitJob.textContent=p1DeployArray[p1DeployArray.length-1].job
 page3.classList.add("hide");
 page4.classList.remove("hide");
-}
+}}
 )
 
 // Place P1 units dom
@@ -273,13 +301,13 @@ addArmy2.addEventListener("click",
         let unitSprite2
         //-----------------------------------------acrescentar novas classes abaixo--------------------------------------------------------------------
         if(unitType2==="Jinn"){
-            unitBuilder2 = new Jinn("player2",match.player2)}
+            unitBuilder2 = new Jinn("player2",match.player2,match.typeOfGame)}
             else if(unitType2==="Demon"){
-                unitBuilder2 = new Demon("player2",match.player2)}
+                unitBuilder2 = new Demon("player2",match.player2,match.typeOfGame)}
                 else if(unitType2==="Medusa"){
-                    unitBuilder2 = new Medusa("player2",match.player2)}
+                    unitBuilder2 = new Medusa("player2",match.player2,match.typeOfGame)}
                     else if(unitType2==="Dragon"){
-                        unitBuilder2 = new Dragon("player2",match.player2)}
+                        unitBuilder2 = new Dragon("player2",match.player2,match.typeOfGame)}
                     ;
             //----------------------------------acrescentar novas classes acima---------------------------------------------------------------------------
         unitSprite2 = unitBuilder2.mainImage
@@ -318,12 +346,19 @@ return;
 // Finished deploy button and start Deploy fase arrangements
 P2finishedArmy.addEventListener("click",()=>{if(match.player2ArmyPoints<(match.gameArmyPoints/2)){alert (`please, add more units to your army. Don't make this a suicide mission!`);
 return}
-else 
+else
+speedBooster2 = (match.player2Army.length*0.0002)-0.0001
+for(let i=0;i<match.player2Army.length;i++)
+{
+    match.player2Army[i].activationTime+=speedBooster2;
+    speedBooster2-=0.0002
+}
+{ 
 p2DeployArray=Object.assign([],match.player2Army)
 p2lastUnitImage.src=p2DeployArray[p2DeployArray.length-1].mainImage
 p2lastUnitJob.textContent=p2DeployArray[p2DeployArray.length-1].job
 page6.classList.add("hide");
-page7.classList.remove("hide");})
+page7.classList.remove("hide");}})
 
 // Place P1 units dom
 p2DeployBtn.addEventListener("click",()=>{if(p2DeployArray.length>0)
@@ -375,21 +410,61 @@ return
 )
 
 p2SetupFinishedBtn.addEventListener("click",()=>
-{
+{ 
+
     if(p2DeployArray.length==0)
-    {
-        match.startMatch()
+    { 
+        if(match.typeOfGame==="A"){
+        match.startMatchA()
         page7.classList.add("hide");
         page8.classList.remove("hide");
         
     }
+    else
+    {
+        document.querySelector(`#turnInformation`).classList.add("hide");
+        turnMenu.classList.add("hide");
+        activationMenu.classList.remove("hide");
+        allMapArray=[];
+        let unit;
+        for(let n=0;n<map.length;n++)
+        {
+            for(let k=0;k<map[n].length;k++)
+            {
+            if(typeof map[n][k]==="object")
+                {
+                unit = map[n][k];
+                unit.activationTime+=unit.speed    
+                allMapArray.push(unit)
+                } 
+            else continue
+            }
+        }
+            {
+            sortedMapArray=allMapArray.sort((a,b)=>b.activationTime-a.activationTime);
+            let nextToPlay = sortedMapArray[0];
+            activeChar = map[nextToPlay.positionX][nextToPlay.positionY];
+            changeTurnName.textContent=activeChar.playerName;
+            activeChar.activateIdle();
+            match.activePlayer=activeChar.playerName
+            page7.classList.add("hide");
+        page8.classList.remove("hide");
+            let boardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+            document.querySelector(boardSpace).classList.add("charSelected");
+            selectedInformation(activeCharInformation,activeChar);
+            gameMatchPage.classList.remove("hide");
+            setTimeout(()=>{gameMatchPage.classList.add("hide")},2000)
+            }
+
+    }
+}
 else alert (`You need to deploy all of your unity's`)
 })
 
 //--------------------------------Here ends the game setup and starts the board DOM-----------------------------------------------------------------
 
 
-function endTurn(){ 
+function endTurn(){//this function is not used on game B... the player is decided in accordance of the unit order of play 
     if(activeChar!=="-"){
         activeChar.endUnitActivation()};       
     if(match.activePlayer===match.player1){

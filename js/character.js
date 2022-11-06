@@ -1,5 +1,5 @@
 class Unit{
-    constructor(job,maxHealth,attackTurn,attack,charMovment,range,points,playerId,playerName,mainImage,idle,atkMov,hurt,death)
+    constructor(job,maxHealth,attackTurn,attack,charMovment,range,speed,points,playerId,playerName,mainImage,idle,atkMov,hurt,death,typeOfGame)
     {
         this.job=job
         this.maxHealth=maxHealth
@@ -10,6 +10,9 @@ class Unit{
         this.charMovment=charMovment
         this.movment=charMovment
         this.range=range
+        this.speed=speed
+        this.normalSpeed=speed
+        this.activationTime=speed
         this.points=points
         this.positionX=-1
         this.positionY=-1
@@ -21,6 +24,7 @@ class Unit{
         this.atkMov=atkMov
         this.hurt=hurt
         this.death=death
+        this.typeOfGame=typeOfGame
                     
     }
 activateIdle(){
@@ -34,7 +38,8 @@ returnToMain(){
 
 }
 endUnitActivation()
-{ if(this.playerId==="player1"){if(p1unitsCounter>1){
+{if(this.typeOfGame==="A"){
+     if(this.playerId==="player1"){if(p1unitsCounter>1){
     this.attackMade=0
     this.movment=0
     this.activated=true
@@ -78,6 +83,49 @@ endUnitActivation()
                 turnMenu.classList.remove("hide");
                 activationMenu.classList.add("hide");
                 activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"}
+} 
+else
+    {
+        this.attackMade=this.attackTurn
+        this.movment=this.charMovment
+        this.speed=this.normalSpeed
+        this.activated=false//no jogo b esse parametro não é usado
+        this.activationTime--
+        this.returnToMain()
+        let boardSpace=`#b${this.positionX}${this.positionY}`
+        document.querySelector(boardSpace).classList.remove("charSelected")
+        activeChar="-"
+        allMapArray=[];
+        let unit
+        for(let n=0;n<map.length;n++)
+        {
+            for(let k=0;k<map[n].length;k++)
+            {
+            if(typeof map[n][k]==="object")
+                {
+                unit = map[n][k];
+                unit.activationTime+=unit.speed    
+                allMapArray.push(unit)
+                } 
+            else continue
+            }
+        }
+            {
+            sortedMapArray=[]
+            sortedMapArray=allMapArray.sort((a,b)=>b.activationTime-a.activationTime);
+            console.log(sortedMapArray)
+            let nextToPlay = sortedMapArray[0];
+            activeChar = map[nextToPlay.positionX][nextToPlay.positionY];
+            changeTurnName.textContent=activeChar.playerName;
+            activeChar.activateIdle();
+            let boardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+            document.querySelector(boardSpace).classList.add("charSelected");
+            selectedInformation(activeCharInformation,activeChar);
+            gameMatchPage.classList.remove("hide");
+            setTimeout(()=>{gameMatchPage.classList.add("hide")},2000)
+            }
+
+    }
 }    
 moveRight(){
     if(this.movment>0)
@@ -231,15 +279,47 @@ returnDamage(tr){
         selectedInformation(activeCharInformation,activeChar);
         let attackerBoardSpace=`#b${attacker.positionX}${attacker.positionY}`;
         document.querySelector(attackerBoardSpace).src=attacker.hurt;
-        if(attacker.health<1){        
+        if(attacker.health<1)
+        {        
         setTimeout(()=>{
         let boardSpace=`#b${attacker.positionX}${attacker.positionY}`;
         document.querySelector(boardSpace).classList.remove("charSelected");
         attacker.die();
         attacker="-"
         activeChar="-";
-        turnMenu.classList.remove("hide");
-        activationMenu.classList.add("hide");
+        if(hurted.typeOfGame==="A"){turnMenu.classList.remove("hide");
+        activationMenu.classList.add("hide")}
+        else // for game type B
+        {allMapArray=[];
+        let unit
+        for(let n=0;n<map.length;n++)
+        {
+            for(let k=0;k<map[n].length;k++)
+            {
+            if(typeof map[n][k]==="object")
+                {
+                unit = map[n][k];
+                unit.activationTime+=unit.speed    
+                allMapArray.push(unit)
+                } 
+            else continue
+            }
+        }
+            {
+            sortedMapArray=allMapArray.sort((a,b)=>b.activationTime-a.activationTime);
+            console.log(sortedMapArray)
+            let nextToPlay = sortedMapArray[0];
+            activeChar = map[nextToPlay.positionX][nextToPlay.positionY];
+            changeTurnName.textContent=activeChar.playerName;
+            activeChar.activateIdle();
+            let boardSpace=`#b${activeChar.positionX}${activeChar.positionY}`;
+            document.querySelector(boardSpace).classList.add("charSelected");
+            selectedInformation(activeCharInformation,activeChar);
+            gameMatchPage.classList.remove("hide");
+            setTimeout(()=>{gameMatchPage.classList.add("hide")},2000)
+            }
+
+        }
         },1500)
         }
         else 
@@ -328,10 +408,11 @@ heal(){
 //---------------------------From down here just new units constructed with the Unit class-----------
 
 class Mage extends Unit{
-    constructor(playerId,playerName){
-        super(`Mage`,50,1,30,1,3,20)
+    constructor(playerId,playerName,typeOfGame){
+        super(`Mage`,50,1,30,1,3,0.2,20)
         this.playerId=playerId;
         this.playerName=playerName;
+        this.typeOfGame=typeOfGame;
         this.mainImage="./img/spritestouse/Mage/mainImage.png";
     this.idle="./img/spritestouse/Mage/idle.gif";
     this.atkMov="./img/spritestouse/Mage/attack.gif";
@@ -390,9 +471,10 @@ class Mage extends Unit{
     }    
 }
 class Jinn extends Unit{
-    constructor(playerId,playerName){
-        super(`Jinn`,50,1,30,1,3,20)
+    constructor(playerId,playerName,typeOfGame){
+        super(`Jinn`,50,1,30,1,3,0.2,20)
         this.playerId=playerId;
+        this.typeOfGame=typeOfGame;
         this.playerName=playerName;
         this.mainImage="./img/spritestouse/jinn_animation/mainImage.png";
     this.idle="./img/spritestouse/jinn_animation/idle.gif";
@@ -452,9 +534,10 @@ class Jinn extends Unit{
     }      
 }
 class Knight extends Unit{
-    constructor(playerId,playerName){
-        super(`Knight`,100,1,52,1,1,20)
+    constructor(playerId,playerName,typeOfGame){
+        super(`Knight`,100,1,52,1,1,0.2,20)
         this.playerId=playerId;
+        this.typeOfGame=typeOfGame;
         this.playerName=playerName;
         this.mainImage="./img/spritestouse/Knight/mainImage.png";
     this.idle="./img/spritestouse/Knight/idle.gif";
@@ -462,7 +545,7 @@ class Knight extends Unit{
     this.death="./img/spritestouse/Knight/death.gif";
     this.hurt="./img/spritestouse/Knight/hurt.gif"        
     }
-    returnDamage(tr){
+    /*returnDamage(tr){
         console.log(attacker)
         if(this.range>=tr){
             let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
@@ -500,8 +583,8 @@ class Knight extends Unit{
         else { this.movment=2
             let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
         document.querySelector(hurtedBoardSpace).src=this.mainImage;}
-    }
-    endUnitActivation()
+    }*/
+    /*endUnitActivation()
 { if(this.movment>0){if(this.health+12>this.maxHealth){
     this.health=this.maxHealth
 }
@@ -551,21 +634,22 @@ else {this.health=this.health+12}
                 turnMenu.classList.remove("hide");
                 activationMenu.classList.add("hide");
                 activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"}
-} 
+} */
 
 }
 class Demon extends Unit{
-    constructor(playerId,playerName){
-        super(`Demon`,100,1,52,1,1,20)
+    constructor(playerId,playerName,typeOfGame){
+        super(`Demon`,100,1,52,1,1,0.2,20)
         this.playerId=playerId;
         this.playerName=playerName;
+        this.typeOfGame=typeOfGame;
         this.mainImage="./img/spritestouse/demon/mainImage.gif";
     this.idle="./img/spritestouse/demon/idle.gif";
     this.atkMov="./img/spritestouse/demon/attack.gif";
     this.death="./img/spritestouse/demon/death.gif";
     this.hurt="./img/spritestouse/demon/hurt.gif"        
     }
-    returnDamage(tr){
+  /*  returnDamage(tr){
         console.log(attacker)
         if(this.range>=tr){
             let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
@@ -603,8 +687,8 @@ class Demon extends Unit{
         else { this.movment=2
             let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
         document.querySelector(hurtedBoardSpace).src=this.mainImage;}
-    }
-    endUnitActivation()
+    }*/
+    /*endUnitActivation()
 { if(this.movment>0){if(this.health+12>this.maxHealth){
     this.health=this.maxHealth
 }
@@ -654,13 +738,14 @@ else {this.health=this.health+12}
                 turnMenu.classList.remove("hide");
                 activationMenu.classList.add("hide");
                 activeCharInformation.innerHTML="<h3>Activated Unit Information</h3>"}
-} 
+}*/ 
 }
 class Assassin extends Unit{
-    constructor(playerId,playerName){
-        super(`Assassin`,10,2,50,4,1,30)
+    constructor(playerId,playerName,typeOfGame){
+        super(`Assassin`,10,2,50,4,1,0.25,30)
         this.playerId=playerId;
         this.playerName=playerName;
+        this.typeOfGame=typeOfGame
         this.mainImage="./img/spritestouse/Rogue/mainImage.gif";
     this.idle="./img/spritestouse/Rogue/idle.gif";
     this.atkMov="./img/spritestouse/Rogue/attack.gif";
@@ -700,10 +785,11 @@ class Assassin extends Unit{
     }
 }
 class Medusa extends Unit{
-    constructor(playerId,playerName){
-        super(`Medusa`,10,2,50,4,1,30)
+    constructor(playerId,playerName,typeOfGame){
+        super(`Medusa`,10,2,50,4,1,0.25,30)
         this.playerId=playerId;
         this.playerName=playerName;
+        this.typeOfGame=typeOfGame;
         this.mainImage="./img/spritestouse/medusa/mainImage.gif";
     this.idle="./img/spritestouse/medusa/idle.gif";
     this.atkMov="./img/spritestouse/medusa/attack.gif";
@@ -743,9 +829,10 @@ class Medusa extends Unit{
     }
 }
 class Archer extends Unit{
-    constructor(playerId,playerName){
-        super(`Archer`,60,1,46,2,2,25)
+    constructor(playerId,playerName,typeOfGame){
+        super(`Archer`,60,1,46,2,2,0.23,25)
         this.playerId=playerId;
+        this.typeOfGame=typeOfGame;
         this.playerName=playerName;
         this.mainImage="./img/spritestouse/archer/mainImage.gif";
     this.idle="./img/spritestouse/archer/idle.gif";
@@ -753,7 +840,7 @@ class Archer extends Unit{
     this.death="./img/spritestouse/archer/death.gif";
     this.hurt="./img/spritestouse/archer/hurt.gif";        
     }
-    returnDamage(tr){
+  /*  returnDamage(tr){
         console.log(attacker)
         if(this.range>=tr){
             let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
@@ -790,12 +877,13 @@ class Archer extends Unit{
         }
         else {let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
         document.querySelector(hurtedBoardSpace).src=this.mainImage;}
-    }
+    }*/
 }
 class Dragon extends Unit{
-    constructor(playerId,playerName){
-        super(`Dragon`,60,1,46,2,2,25)
+    constructor(playerId,playerName,typeOfGame){
+        super(`Dragon`,60,1,46,2,2,0.23,25)
         this.playerId=playerId;
+        this.typeOfGame=typeOfGame;
         this.playerName=playerName;
         this.mainImage="./img/spritestouse/dragon/mainImage.gif";
     this.idle="./img/spritestouse/dragon/idle.gif";
@@ -803,7 +891,7 @@ class Dragon extends Unit{
     this.death="./img/spritestouse/dragon/death.gif";
     this.hurt="./img/spritestouse/dragon/hurt.gif";        
     }
-    returnDamage(tr){
+   /* returnDamage(tr){
         console.log(attacker)
         if(this.range>=tr){
             let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
@@ -840,5 +928,5 @@ class Dragon extends Unit{
         }
         else {let hurtedBoardSpace=`#b${this.positionX}${this.positionY}`
         document.querySelector(hurtedBoardSpace).src=this.mainImage;}
-    }
+    }*/
 }

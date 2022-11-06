@@ -34,6 +34,11 @@ let mageTargetY
 let attacker// this is necessary to keep in a independent variable so that the attacker cant use movment to run from the return damage
 let p1unitsCounter=100
 let p2unitsCounter=100
+let allMapArray=[]
+let sortedMapArray=[]
+let changeTurnName = document.querySelector(`#changeTurnName`)
+let speedBooster2
+let speedBooster1
 
 
 //Function that actualize the game menu information
@@ -53,6 +58,7 @@ function selectedInformation(space,target){
        }
        space.appendChild(textInformation)
  }
+
 //logica do mapa
 for(let i=0;i<cells.length;i++)
 {cells[i].addEventListener('click',()=>{
@@ -80,3 +86,4 @@ selectedInformation(selectedSpaceInformation,targetSpaceMap);
 //console.log(map)
 //console.log(match.player1Army)
 })}
+
