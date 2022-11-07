@@ -7,6 +7,9 @@
 #page6{
   margin-bottom: 5%;
 }
+#gameSelector h4{
+  padding:2%
+}
 .centerStuff{
   display:flex;
   flex-direction: column;
