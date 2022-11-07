@@ -13,6 +13,7 @@ class Unit{
         this.charMovment=charMovment
         this.movment=charMovment
         this.range=range
+        this.normalRange=range
         this.speed=speed
         this.normalSpeed=speed
         this.activationTime=speed
@@ -40,8 +41,8 @@ returnToMain(){
     document.querySelector(attackerBoardSpace).src=this.mainImage;
 
 }
-endUnitActivation()
-{if(this.typeOfGame==="A"){
+endUnitActivation(){
+    if(this.typeOfGame==="A"){
      if(this.playerId==="player1"){if(p1unitsCounter>1){
     this.attackMade=0
     this.movment=0
@@ -367,7 +368,7 @@ gameEndTest(){
      
     }
 }
-die() {
+die(){
     let dying=this;
     this.movment++//isso impede que a desativação da unidade seja ativada pelo attack, o que causava uma imagem de idle aparecer no quadrado da unidade morta
     map[dying.positionX][dying.positionY]="-"
@@ -437,6 +438,16 @@ attackBuffer(){
     document.querySelector(buffedBoardSpace).src=this.idle;
     let buffed=this;
     this.attack=this.normalAttack+10
+    setTimeout(()=>{
+        selectedInformation(selectedSpaceInformation,targetSpaceMap);
+        document.querySelector(buffedBoardSpace).src=buffed.mainImage;
+    },1500) 
+}
+defenseBuffer(){
+    let buffedBoardSpace=`#b${this.positionX}${this.positionY}`
+    document.querySelector(buffedBoardSpace).src=this.idle;
+    let buffed=this;
+    this.defense+=30
     setTimeout(()=>{
         selectedInformation(selectedSpaceInformation,targetSpaceMap);
         document.querySelector(buffedBoardSpace).src=buffed.mainImage;
